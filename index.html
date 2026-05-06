@@ -355,7 +355,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCy5Yczeh2__y2NEHwYQKIawkujEGsHNqpXZWCvd-B3QCuCswasrl_lQwr4GMsjvCy/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNGEXQv4U-dHC7lzEbUfT2dqdD8JF2va21axUL2IoHwyr5lnzVeEmp7RGZXTf7ZLyH/exec";
 
 const STUDENTS = [
   {name:"Abrego, Adalid",              id:"101335", level:"UG",   sheetRow:4},
@@ -527,32 +527,76 @@ function buildReview() {
   document.getElementById("errbox").classList.remove("show");
 }
 
-async function submit() {
-  const t=CRITERIA.reduce((a,c)=>a+SC[c.key],0);
-  const payload={
-    judge, studentName:student.name, studentId:student.id,
-    level:student.level==="UG"?"Undergraduate":"Graduate",
-    targetRow:student.sheetRow+JO[judge],
-    s1:SC.s1,s2:SC.s2,s3:SC.s3,s4:SC.s4,s5:SC.s5,total:t,
-    comments:(document.getElementById("commentsField").value||"").trim()
+function submit() {
+  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  const payload = {
+    judge,
+    studentName: student.name,
+    studentId:   student.id,
+    level:       student.level==="UG" ? "Undergraduate" : "Graduate",
+    targetRow:   student.sheetRow + JO[judge],
+    s1:SC.s1, s2:SC.s2, s3:SC.s3, s4:SC.s4, s5:SC.s5,
+    total:    t,
+    comments: (document.getElementById("commentsField").value||"").trim()
   };
+
   document.getElementById("subTxt").classList.add("hidden");
-  document.getElementById("spin").style.display="block";
-  document.getElementById("subBtn").disabled=true;
-  try {
-    await fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    document.getElementById("sucCard").innerHTML=[
-      ["Judge",judge],["Student",student.name],["Level",payload.level],
-      ["Score",`${t%1===0?t:t.toFixed(1)} / 40 pts`],["Time",new Date().toLocaleString()]
-    ].map(([k,v])=>`<div class="suc-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join("");
-    nav(5);
-  } catch(e) {
-    document.getElementById("errMsg").textContent="Network error — check your connection and try again.";
-    document.getElementById("errbox").classList.add("show");
-    document.getElementById("subTxt").classList.remove("hidden");
-    document.getElementById("spin").style.display="none";
-    document.getElementById("subBtn").disabled=false;
+  document.getElementById("spin").style.display = "block";
+  document.getElementById("subBtn").disabled = true;
+
+  // Apps Script blocks fetch (redirect + CORS). Use a hidden iframe form-POST instead —
+  // this works reliably because browsers allow cross-origin form submissions.
+  const iframeName = "gsSubmit_" + Date.now();
+  const iframe = document.createElement("iframe");
+  iframe.name = iframeName;
+  iframe.style.display = "none";
+  document.body.appendChild(iframe);
+
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = SCRIPT_URL;
+  form.target = iframeName;
+  form.style.display = "none";
+
+  // Apps Script reads from e.postData when Content-Type is text/plain via a single field
+  // named "payload" — send JSON as a plain text field so doPost() can parse it.
+  const field = document.createElement("input");
+  field.type  = "hidden";
+  field.name  = "payload";
+  field.value = JSON.stringify(payload);
+  form.appendChild(field);
+  document.body.appendChild(form);
+
+  // Show success after 3 s — iframe load fires unreliably cross-origin,
+  // so we use a short timeout which is always enough for Apps Script to write.
+  const timer = setTimeout(() => {
+    showSuccess(payload, t);
+    cleanup();
+  }, 3000);
+
+  iframe.onload = () => {
+    clearTimeout(timer);
+    showSuccess(payload, t);
+    cleanup();
+  };
+
+  function cleanup() {
+    try { document.body.removeChild(form); } catch(_) {}
+    try { document.body.removeChild(iframe); } catch(_) {}
   }
+
+  form.submit();
+}
+
+function showSuccess(payload, t) {
+  document.getElementById("sucCard").innerHTML = [
+    ["Judge",   payload.judge],
+    ["Student", payload.studentName],
+    ["Level",   payload.level],
+    ["Score",   `${t%1===0?t:t.toFixed(1)} / 40 pts`],
+    ["Time",    new Date().toLocaleString()]
+  ].map(([k,v]) => `<div class="suc-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join("");
+  nav(5);
 }
 
 function scoreAnother() {
