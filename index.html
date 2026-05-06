@@ -14,8 +14,7 @@
   --text:#1a1917;--muted:#6b6760;--faint:#9c9890;
   --accent:#2a5bd7;--accent-bg:#eef2fd;--accent2:#1a3fa0;
   --green:#16a34a;--green-bg:#e8f5ee;
-  --red:#c0392b;
-  --gold:#8a6a14;--gold-bg:#fdf6e3;
+  --red:#c0392b;--gold:#8a6a14;--gold-bg:#fdf6e3;
   --ug:#1a5fb4;--ug-bg:#ddeafe;
   --grad:#6b3fa0;--grad-bg:#ede9f8;
   --r:12px;--rsm:8px;
@@ -32,7 +31,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 /* Stepper */
 .stepper-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px}
-.stepper{max-width:640px;margin:0 auto;display:flex;height:52px;align-items:center}
+.stepper{max-width:680px;margin:0 auto;display:flex;height:52px;align-items:center}
 .step{flex:1;display:flex;justify-content:center;position:relative}
 .step:not(:last-child)::after{content:'';position:absolute;left:calc(50% + 16px);right:calc(-50% + 16px);top:50%;height:1px;background:var(--border)}
 .step.done:not(:last-child)::after{background:var(--accent)}
@@ -45,7 +44,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .step.done .step-lbl{color:var(--accent)}
 
 /* Main */
-.main{flex:1;padding:36px 28px 64px;max-width:640px;margin:0 auto;width:100%}
+.main{flex:1;padding:36px 28px 64px;max-width:680px;margin:0 auto;width:100%}
 .screen{display:none}
 .screen.active{display:block;animation:fadeUp .26s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -56,36 +55,36 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .ssub{font-size:14px;color:var(--muted);margin-bottom:30px;line-height:1.5}
 
 /* Judge strip */
-.jstrip{display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.jstrip{display:flex;align-items:center;gap:8px;margin-bottom:22px;flex-wrap:wrap}
 .jstrip-lbl{font-size:12px;color:var(--muted)}
 .pill{display:inline-flex;align-items:center;padding:3px 11px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.1px}
 .pill-gold{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(138,106,20,.18)}
 .pill-ug{background:var(--ug-bg);color:var(--ug)}
 .pill-grad{background:var(--grad-bg);color:var(--grad)}
 
-/* Judge cards */
-.jgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
-.jcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+/* Judge cards — 3-col grid for 12 judges */
+.jgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.jcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;user-select:none}
 .jcard:hover{border-color:var(--border2);background:var(--surface2)}
 .jcard.sel{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
-.javatar{width:38px;height:38px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:background .15s,border-color .15s}
-.jcard.sel .javatar{background:rgba(42,91,215,.1);border-color:rgba(42,91,215,.2)}
-.jname{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+.javatar{width:34px;height:34px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .15s}
+.jcard.sel .javatar{background:rgba(42,91,215,.12);border-color:rgba(42,91,215,.25)}
+.jname{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
 .jcard.sel .jname{color:var(--accent2)}
-.jrole{font-size:11px;color:var(--muted);margin-top:1px}
-.j5wrap{grid-column:1/-1;display:flex;justify-content:center}
-.j5wrap .jcard{width:calc(50% - 5px)}
+.jaffil{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
 
 /* Warn */
 .warn{font-size:13px;color:var(--red);margin-bottom:14px;display:none;align-items:center;gap:6px}
 .warn.show{display:flex}
 
-/* Search / filter */
+/* Search */
 .search-wrap{position:relative;margin-bottom:10px}
 .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none}
 .search-wrap input{width:100%;padding:10px 14px 10px 38px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
 .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
 .search-wrap input::placeholder{color:var(--faint)}
+
+/* Filter tabs */
 .ftabs{display:flex;gap:4px;margin-bottom:12px}
 .ftab{padding:5px 14px;border-radius:100px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .14s;font-family:inherit}
 .ftab:hover{border-color:var(--border2);color:var(--text)}
@@ -103,7 +102,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .sid{font-size:11px;color:var(--faint);margin-top:1px;font-variant-numeric:tabular-nums}
 .sempty{padding:28px;text-align:center;font-size:13px;color:var(--faint)}
 
-/* Student bar on score screen */
+/* Student bar */
 .sbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .sbar-name{font-size:15px;font-weight:600;color:var(--text)}
 .sbar-meta{font-size:12px;color:var(--muted);margin-top:2px}
@@ -144,7 +143,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .rlabel{font-size:11px;color:var(--muted);min-width:130px;flex-shrink:0;line-height:1.4}
 .rtrack{flex:1;height:3px;background:var(--border);border-radius:3px;overflow:hidden}
 .rfill{height:100%;background:var(--accent);border-radius:3px;transition:width .4s ease}
-.rscore{font-size:13px;font-weight:600;color:var(--text);min-width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.rscore{font-size:13px;font-weight:600;color:var(--text);min-width:42px;text-align:right;font-variant-numeric:tabular-nums}
 .cprev{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 14px;font-size:13px;color:var(--muted);margin-bottom:16px;display:none;line-height:1.5}
 
 /* Error */
@@ -167,8 +166,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Success */
-.suc-wrap{text-align:center;padding:20px 0 8px}
+/* Success screen */
 .suc-ring{width:66px;height:66px;background:var(--green-bg);border-radius:50%;border:2px solid rgba(22,163,74,.25);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)}
 @keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 .suc-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--green);letter-spacing:-.3px;margin-bottom:8px}
@@ -178,17 +176,18 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .suc-row:last-child{border-bottom:none}
 .suc-row .k{color:var(--muted)}
 .suc-row .v{font-weight:600;color:var(--text)}
-.suc-btns{display:flex;gap:10px;justify-content:center}
-.suc-btns .btn{flex:0 1 auto;padding:11px 22px}
 
 .hidden{display:none!important}
-@media(max-width:520px){
+
+@media(max-width:600px){
   .main{padding:24px 16px 48px}
   .topbar,.stepper-bar{padding:0 16px}
   .step-lbl{display:none}
-  .jgrid{grid-template-columns:1fr}
-  .j5wrap .jcard{width:100%}
+  .jgrid{grid-template-columns:repeat(2,1fr)}
   .rlabel{min-width:90px}
+}
+@media(max-width:400px){
+  .jgrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -214,35 +213,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 <div class="main">
 
-  <!-- Screen 1 -->
+  <!-- ── Screen 1: Judge Selection ── -->
   <div class="screen active" id="sc1">
     <div class="slabel">Step 1 of 4</div>
     <div class="stitle">Select your name</div>
-    <div class="ssub">Tap your judge name below to begin scoring student posters.</div>
+    <div class="ssub">Tap your name below to begin evaluating student posters.</div>
 
-    <div class="jgrid">
-      <div class="jcard" data-j="Judge 1" onclick="pickJudge(this)">
-        <div class="javatar">⚖️</div>
-        <div><div class="jname">Judge 1</div><div class="jrole">Evaluator</div></div>
-      </div>
-      <div class="jcard" data-j="Judge 2" onclick="pickJudge(this)">
-        <div class="javatar">⚖️</div>
-        <div><div class="jname">Judge 2</div><div class="jrole">Evaluator</div></div>
-      </div>
-      <div class="jcard" data-j="Judge 3" onclick="pickJudge(this)">
-        <div class="javatar">⚖️</div>
-        <div><div class="jname">Judge 3</div><div class="jrole">Evaluator</div></div>
-      </div>
-      <div class="jcard" data-j="Judge 4" onclick="pickJudge(this)">
-        <div class="javatar">⚖️</div>
-        <div><div class="jname">Judge 4</div><div class="jrole">Evaluator</div></div>
-      </div>
-      <div class="j5wrap">
-        <div class="jcard" data-j="Judge 5" onclick="pickJudge(this)">
-          <div class="javatar">⚖️</div>
-          <div><div class="jname">Judge 5</div><div class="jrole">Evaluator</div></div>
-        </div>
-      </div>
+    <div class="jgrid" id="jgrid">
+      <!-- Populated by JS -->
     </div>
 
     <div class="warn" id="warnJ">
@@ -254,7 +232,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
   </div>
 
-  <!-- Screen 2 -->
+  <!-- ── Screen 2: Student Selection ── -->
   <div class="screen" id="sc2">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js2"></div></div>
     <div class="slabel">Step 2 of 4</div>
@@ -278,7 +256,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
   </div>
 
-  <!-- Screen 3 -->
+  <!-- ── Screen 3: Scoring ── -->
   <div class="screen" id="sc3">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js3"></div></div>
     <div class="slabel">Step 3 of 4</div>
@@ -292,8 +270,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="clist" id="clist"></div>
 
     <div class="tbar">
-      <div><div class="tbar-lbl">Total score</div><div class="tbar-sub">out of 40 points</div></div>
-      <div class="tbar-score" id="totalDisp">0 <small>/ 40</small></div>
+      <div><div class="tbar-lbl">Total score</div><div class="tbar-sub">out of 115 points</div></div>
+      <div class="tbar-score" id="totalDisp">0 <small>/ 115</small></div>
     </div>
 
     <div class="flabel">Comments (optional)</div>
@@ -305,7 +283,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
   </div>
 
-  <!-- Screen 4 -->
+  <!-- ── Screen 4: Review & Submit ── -->
   <div class="screen" id="sc4">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js4"></div></div>
     <div class="slabel">Step 4 of 4</div>
@@ -319,8 +297,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="rlist" id="rlist"></div>
 
     <div class="tbar" style="margin-bottom:16px">
-      <div><div class="tbar-lbl">Final total</div><div class="tbar-sub">out of 40 points</div></div>
-      <div class="tbar-score" id="revTotal">0 <small>/ 40</small></div>
+      <div><div class="tbar-lbl">Final total</div><div class="tbar-sub">out of 115 points</div></div>
+      <div class="tbar-score" id="revTotal">0 <small>/ 115</small></div>
     </div>
 
     <div class="cprev" id="cprev"></div>
@@ -331,17 +309,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div class="btnrow">
       <button class="btn btn-outline" onclick="nav(3)">← Edit scores</button>
-      <button class="btn btn-green" id="subBtn" onclick="submit()">
+      <button class="btn btn-green" id="subBtn" onclick="submitScores()">
         <span id="subTxt">Submit scores</span>
         <div class="spinner" id="spin"></div>
       </button>
     </div>
   </div>
 
-  <!-- Screen 5 -->
+  <!-- ── Screen 5: Success + Report ── -->
   <div class="screen" id="sc5">
 
-    <!-- Success banner -->
     <div style="display:flex;align-items:center;gap:14px;background:var(--green-bg);border:1px solid rgba(22,163,74,.22);border-radius:var(--r);padding:16px 18px;margin-bottom:24px;">
       <div style="width:40px;height:40px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)">✓</div>
       <div>
@@ -350,7 +327,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-    <!-- Auto-download notice -->
     <div id="downloadNotice" style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;">
       <div style="font-size:18px;flex-shrink:0;margin-top:1px" id="noticeIcon">⏳</div>
       <div style="font-size:13px;color:var(--gold);line-height:1.5;" id="noticeText">
@@ -359,11 +335,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-    <!-- Full score report (printable) -->
+    <!-- Printable report card -->
     <div id="reportCard" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:20px;">
 
-      <!-- Report header -->
-      <div style="background:var(--text);padding:18px 20px;">
+      <div style="background:#1a1917;padding:18px 20px;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
           <div>
             <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px">MECE Poster Competition</div>
@@ -371,12 +346,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
           </div>
           <div style="text-align:right">
             <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1" id="rpt-total"></div>
-            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">out of 40 pts</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">out of 115 pts</div>
           </div>
         </div>
       </div>
 
-      <!-- Student + Judge info -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
         <div style="padding:14px 18px;border-right:1px solid var(--border);">
           <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Student</div>
@@ -386,23 +360,21 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div style="padding:14px 18px;">
           <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Evaluated by</div>
           <div style="font-size:14px;font-weight:600;color:var(--text)" id="rpt-judge"></div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-time"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-affil"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:1px" id="rpt-time"></div>
         </div>
       </div>
 
-      <!-- Score breakdown -->
       <div style="padding:16px 18px 4px;">
         <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:12px">Score Breakdown</div>
         <div id="rpt-breakdown"></div>
       </div>
 
-      <!-- Comments -->
       <div id="rpt-comments-wrap" style="padding:0 18px 16px;display:none;">
         <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:6px">Comments</div>
         <div id="rpt-comments" style="font-size:13px;color:var(--muted);background:var(--surface2);border-radius:var(--rsm);padding:10px 13px;border:1px solid var(--border);line-height:1.55;"></div>
       </div>
 
-      <!-- Percentage bar -->
       <div style="padding:14px 18px;border-top:1px solid var(--border);background:var(--surface2);">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
           <div style="font-size:12px;font-weight:500;color:var(--muted)">Overall performance</div>
@@ -414,7 +386,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-    <!-- Action buttons -->
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
       <button class="btn btn-dark" id="saveImgBtn" onclick="saveImage()" style="gap:8px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -426,91 +397,137 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-  </div>
+  </div><!-- /sc5 -->
 
-</div>
-</div>
+</div><!-- /main -->
+</div><!-- /shell -->
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNGEXQv4U-dHC7lzEbUfT2dqdD8JF2va21axUL2IoHwyr5lnzVeEmp7RGZXTf7ZLyH/exec";
+// ─── ADMIN CONFIG ─────────────────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZSHjciIBs6DN82mryhnZOe8pNKGhEaZld7mIyrHLrmq2VnlIjK56CqbWKAVlXuT6zpQ/exec";
 
+// ─── JUDGES (12) — name + affiliation + sheet row offset (0-based) ────────────
+const JUDGES = [
+  { name:"Marotta, Ed",     affil:"ChampionX, SLB" },
+  { name:"Cescon, Marzia",  affil:"UH, MAE" },
+  { name:"Franchek, Matt",  affil:"UH, MAE" },
+  { name:"Singh, Raksha",   affil:"UH, College of Business" },
+  { name:"Chen, Zheng",     affil:"UH, MAE" },
+  { name:"Wang, Ning",      affil:"Baylor Genetics" },
+  { name:"Malki, Heidar",   affil:"UH, Engr. Tech." },
+  { name:"Gaur, Sagar",     affil:"ChampionX, SLB" },
+  { name:"Rekik, Malek",    affil:"ChampionX, SLB" },
+  { name:"McGonigle, Alex", affil:"Midstream Integrity Services" },
+  { name:"Borgi, Rafik",    affil:"ChampionX, SLB" },
+  { name:"Chen, Muhao",     affil:"UH, MAE" },
+];
+
+// ─── STUDENTS (48) — sheetRow = first row of their 12-row block in Scores sheet
+// Data rows start at row 4; each student occupies 12 consecutive rows (one per judge)
 const STUDENTS = [
   {name:"Abrego, Adalid",              id:"101335", level:"UG",   sheetRow:4},
-  {name:"Alouani, Mohamed Amine",      id:"111804", level:"Grad", sheetRow:9},
-  {name:"Baker, Kalen Thomas",         id:"93599",  level:"Grad", sheetRow:14},
-  {name:"Basilio, Andre S",            id:"69769",  level:"UG",   sheetRow:19},
-  {name:"Briscoe, Melvin",             id:"36328",  level:"UG",   sheetRow:24},
-  {name:"Broadbent, Charlie James",    id:"102120", level:"Grad", sheetRow:29},
-  {name:"Cano, Antonio",               id:"75459",  level:"UG",   sheetRow:34},
-  {name:"Chen, Cheng",                 id:"91046",  level:"Grad", sheetRow:39},
-  {name:"De La Cruz, Ricky Daniel",    id:"27315",  level:"UG",   sheetRow:44},
-  {name:"Do, Ricky Tran",              id:"63958",  level:"UG",   sheetRow:49},
-  {name:"Fair, Aiden",                 id:"69825",  level:"UG",   sheetRow:54},
-  {name:"Grandy, Dylan",               id:"90680",  level:"UG",   sheetRow:59},
-  {name:"Hajebrahimi, Marzieh",        id:"43352",  level:"Grad", sheetRow:64},
-  {name:"Hannan, Tico",                id:"12776",  level:"Grad", sheetRow:69},
-  {name:"Hill, Chelsea N",             id:"31871",  level:"UG",   sheetRow:74},
-  {name:"Hua, Allison",                id:"16454",  level:"UG",   sheetRow:79},
-  {name:"Ihesiulo, Onyinyechi C",      id:"32800",  level:"Grad", sheetRow:84},
-  {name:"Jaisimha, Stuthi",            id:"106867", level:"Grad", sheetRow:89},
-  {name:"Joshi, Bhupendra",            id:"63129",  level:"Grad", sheetRow:94},
-  {name:"Jurkin, Loro",                id:"43607",  level:"UG",   sheetRow:99},
-  {name:"Kamboj, Ansh",                id:"72299",  level:"UG",   sheetRow:104},
-  {name:"Lara, Estevan J",             id:"90023",  level:"UG",   sheetRow:109},
-  {name:"Liu, Wenhua",                 id:"92397",  level:"Grad", sheetRow:114},
-  {name:"Lopez, Daisy D",              id:"34144",  level:"UG",   sheetRow:119},
-  {name:"Maraseni, Saurav",            id:"81906",  level:"Grad", sheetRow:124},
-  {name:"Moayedi-Azarpour, Kauveh",    id:"73057",  level:"UG",   sheetRow:129},
-  {name:"Monasterio, Jairo",           id:"62702",  level:"UG",   sheetRow:134},
-  {name:"Munoz Luna, Sebastian",       id:"41338",  level:"UG",   sheetRow:139},
-  {name:"Nguyen, Bryan L",             id:"55380",  level:"UG",   sheetRow:144},
-  {name:"Pardo, Sebastian Alejandro",  id:"82359",  level:"UG",   sheetRow:149},
-  {name:"Perez, Javier E",             id:"34338",  level:"UG",   sheetRow:154},
-  {name:"Peter, Alen Jose",            id:"49319",  level:"UG",   sheetRow:159},
-  {name:"Pham, Ryuto Viet",            id:"4029",   level:"UG",   sheetRow:164},
-  {name:"Quake, Cole D",               id:"46385",  level:"UG",   sheetRow:169},
-  {name:"Risi Mortola, Piero Lucca",   id:"63032",  level:"Grad", sheetRow:174},
-  {name:"Roach, McKay",                id:"113588", level:"Grad", sheetRow:179},
-  {name:"Rodriguez, Christian C",      id:"31843",  level:"UG",   sheetRow:184},
-  {name:"Shah, Rohan",                 id:"13043",  level:"UG",   sheetRow:189},
-  {name:"Sharp, Matteo Sebastien",     id:"39062",  level:"UG",   sheetRow:194},
-  {name:"Silwal, Saurav",              id:"54784",  level:"Grad", sheetRow:199},
-  {name:"Talaga, Isaac",               id:"116676", level:"Grad", sheetRow:204},
-  {name:"Thakkar, Hetvi Ashishbhai",   id:"118047", level:"Grad", sheetRow:209},
-  {name:"Thapa, Anamol",               id:"80850",  level:"UG",   sheetRow:214},
-  {name:"Tiwari, Amrit",               id:"111813", level:"Grad", sheetRow:219},
-  {name:"Trinh, William Minh",         id:"35053",  level:"UG",   sheetRow:224},
-  {name:"Udesa, Rufo Gololcha",        id:"111801", level:"Grad", sheetRow:229},
-  {name:"Ying, Yuhang",                id:"73620",  level:"Grad", sheetRow:234},
-  {name:"Zino, Gaby",                  id:"38028",  level:"Grad", sheetRow:239},
+  {name:"Alouani, Mohamed Amine",      id:"111804", level:"Grad", sheetRow:16},
+  {name:"Baker, Kalen Thomas",         id:"93599",  level:"Grad", sheetRow:28},
+  {name:"Basilio, Andre S",            id:"69769",  level:"UG",   sheetRow:40},
+  {name:"Briscoe, Melvin",             id:"36328",  level:"UG",   sheetRow:52},
+  {name:"Broadbent, Charlie James",    id:"102120", level:"Grad", sheetRow:64},
+  {name:"Cano, Antonio",               id:"75459",  level:"UG",   sheetRow:76},
+  {name:"Chen, Cheng",                 id:"91046",  level:"Grad", sheetRow:88},
+  {name:"De La Cruz, Ricky Daniel",    id:"27315",  level:"UG",   sheetRow:100},
+  {name:"Do, Ricky Tran",              id:"63958",  level:"UG",   sheetRow:112},
+  {name:"Fair, Aiden",                 id:"69825",  level:"UG",   sheetRow:124},
+  {name:"Grandy, Dylan",               id:"90680",  level:"UG",   sheetRow:136},
+  {name:"Hajebrahimi, Marzieh",        id:"43352",  level:"Grad", sheetRow:148},
+  {name:"Hannan, Tico",                id:"12776",  level:"Grad", sheetRow:160},
+  {name:"Hill, Chelsea N",             id:"31871",  level:"UG",   sheetRow:172},
+  {name:"Hua, Allison",                id:"16454",  level:"UG",   sheetRow:184},
+  {name:"Ihesiulo, Onyinyechi C",      id:"32800",  level:"Grad", sheetRow:196},
+  {name:"Jaisimha, Stuthi",            id:"106867", level:"Grad", sheetRow:208},
+  {name:"Joshi, Bhupendra",            id:"63129",  level:"Grad", sheetRow:220},
+  {name:"Jurkin, Loro",                id:"43607",  level:"UG",   sheetRow:232},
+  {name:"Kamboj, Ansh",                id:"72299",  level:"UG",   sheetRow:244},
+  {name:"Lara, Estevan J",             id:"90023",  level:"UG",   sheetRow:256},
+  {name:"Liu, Wenhua",                 id:"92397",  level:"Grad", sheetRow:268},
+  {name:"Lopez, Daisy D",              id:"34144",  level:"UG",   sheetRow:280},
+  {name:"Maraseni, Saurav",            id:"81906",  level:"Grad", sheetRow:292},
+  {name:"Moayedi-Azarpour, Kauveh",    id:"73057",  level:"UG",   sheetRow:304},
+  {name:"Monasterio, Jairo",           id:"62702",  level:"UG",   sheetRow:316},
+  {name:"Munoz Luna, Sebastian",       id:"41338",  level:"UG",   sheetRow:328},
+  {name:"Nguyen, Bryan L",             id:"55380",  level:"UG",   sheetRow:340},
+  {name:"Pardo, Sebastian Alejandro",  id:"82359",  level:"UG",   sheetRow:352},
+  {name:"Perez, Javier E",             id:"34338",  level:"UG",   sheetRow:364},
+  {name:"Peter, Alen Jose",            id:"49319",  level:"UG",   sheetRow:376},
+  {name:"Pham, Ryuto Viet",            id:"4029",   level:"UG",   sheetRow:388},
+  {name:"Quake, Cole D",               id:"46385",  level:"UG",   sheetRow:400},
+  {name:"Risi Mortola, Piero Lucca",   id:"63032",  level:"Grad", sheetRow:412},
+  {name:"Roach, McKay",                id:"113588", level:"Grad", sheetRow:424},
+  {name:"Rodriguez, Christian C",      id:"31843",  level:"UG",   sheetRow:436},
+  {name:"Shah, Rohan",                 id:"13043",  level:"UG",   sheetRow:448},
+  {name:"Sharp, Matteo Sebastien",     id:"39062",  level:"UG",   sheetRow:460},
+  {name:"Silwal, Saurav",              id:"54784",  level:"Grad", sheetRow:472},
+  {name:"Talaga, Isaac",               id:"116676", level:"Grad", sheetRow:484},
+  {name:"Thakkar, Hetvi Ashishbhai",   id:"118047", level:"Grad", sheetRow:496},
+  {name:"Thapa, Anamol",               id:"80850",  level:"UG",   sheetRow:508},
+  {name:"Tiwari, Amrit",               id:"111813", level:"Grad", sheetRow:520},
+  {name:"Trinh, William Minh",         id:"35053",  level:"UG",   sheetRow:532},
+  {name:"Udesa, Rufo Gololcha",        id:"111801", level:"Grad", sheetRow:544},
+  {name:"Ying, Yuhang",                id:"73620",  level:"Grad", sheetRow:556},
+  {name:"Zino, Gaby",                  id:"38028",  level:"Grad", sheetRow:568},
 ];
 
-const JO = {"Judge 1":0,"Judge 2":1,"Judge 3":2,"Judge 4":3,"Judge 5":4};
-
+// ─── CRITERIA (8, total 115 pts) ──────────────────────────────────────────────
 const CRITERIA = [
-  {key:"s1", cat:"Appearance & Structure", name:"Adherence to poster requirements; research data stands for itself",   max:5},
-  {key:"s2", cat:"Appearance & Structure", name:"Content organization and logical flow of poster presentation",         max:10},
-  {key:"s3", cat:"Content",               name:"Technical content is clear, objective, and easy to understand",        max:15},
-  {key:"s4", cat:"Content",               name:"Relevance to the industry",                                            max:5},
-  {key:"s5", cat:"Discussion",            name:"Quality discussion; presenter adequately answered judges' questions",   max:5},
+  {key:"c1", name:"Problem Statement",            max:10},
+  {key:"c2", name:"Task 1",                       max:15},
+  {key:"c3", name:"Task 2",                       max:15},
+  {key:"c4", name:"Task 3",                       max:20},
+  {key:"c5", name:"Creative Innovation (Task 4)", max:15},
+  {key:"c6", name:"Master of Knowledge",          max:15},
+  {key:"c7", name:"Poster Clarity",               max:10},
+  {key:"c8", name:"Q&A",                          max:15},
 ];
+const TOTAL_MAX = 115;
 
-let judge = "", student = null, filt = "all";
-const SC = {s1:0,s2:0,s3:0,s4:0,s5:0};
+// ─── State ────────────────────────────────────────────────────────────────────
+let judgeIdx  = -1;   // index into JUDGES array
+let student   = null;
+let filt      = "all";
+const SC      = {c1:0,c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0};
 
-function pickJudge(el) {
-  document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
-  el.classList.add("sel");
-  judge = el.getAttribute("data-j");
-  document.getElementById("warnJ").classList.remove("show");
-}
+// ─── Build judge grid ─────────────────────────────────────────────────────────
+(function buildJudgeGrid() {
+  const grid = document.getElementById("jgrid");
+  JUDGES.forEach((j, idx) => {
+    const card = document.createElement("div");
+    card.className = "jcard";
+    card.dataset.idx = idx;
+    card.innerHTML = `
+      <div class="javatar">⚖️</div>
+      <div>
+        <div class="jname">${j.name}</div>
+        <div class="jaffil">${j.affil}</div>
+      </div>`;
+    card.onclick = function() {
+      document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
+      this.classList.add("sel");
+      judgeIdx = parseInt(this.dataset.idx);
+      document.getElementById("warnJ").classList.remove("show");
+    };
+    grid.appendChild(card);
+  });
+})();
 
+// ─── Navigation ───────────────────────────────────────────────────────────────
 function nav(n) {
-  if (n===2 && !judge)   { document.getElementById("warnJ").classList.add("show"); return; }
-  if (n===3 && !student) { alert("Please select a student first."); return; }
-  if (n>=2) { ["js2","js3","js4"].forEach(id => document.getElementById(id).textContent = judge); }
-  if (n===3) buildScore();
-  if (n===4) buildReview();
+  if (n === 2 && judgeIdx < 0) { document.getElementById("warnJ").classList.add("show"); return; }
+  if (n === 3 && !student)     { alert("Please select a student first."); return; }
+
+  if (n >= 2) {
+    const jname = JUDGES[judgeIdx].name;
+    ["js2","js3","js4"].forEach(id => document.getElementById(id).textContent = jname);
+  }
+  if (n === 3) buildScoreScreen();
+  if (n === 4) buildReviewScreen();
 
   document.querySelectorAll(".screen").forEach((s,i) => s.classList.toggle("active", i+1===n));
 
@@ -519,14 +536,15 @@ function nav(n) {
     st.classList.remove("active","done");
     if (i<n)  { st.classList.add("done");   sn.textContent="✓"; }
     if (i===n) { st.classList.add("active"); sn.textContent=i; }
-    if (i>n)    sn.textContent=i;
+    if (i>n)   sn.textContent=i;
   }
   document.getElementById("stepperBar").classList.toggle("hidden", n===5);
   window.scrollTo(0,0);
 }
 
+// ─── Student filter / list ────────────────────────────────────────────────────
 function setFilter(f) {
-  filt=f;
+  filt = f;
   document.getElementById("ftAll").classList.toggle("on",  f==="all");
   document.getElementById("ftUG").classList.toggle("on",   f==="UG");
   document.getElementById("ftGrad").classList.toggle("on", f==="Grad");
@@ -534,30 +552,35 @@ function setFilter(f) {
 }
 
 function filterStudents() {
-  const q=(document.getElementById("searchInp").value||"").toLowerCase().trim();
-  const list=STUDENTS.filter(s=>(filt==="all"||s.level===filt)&&(!q||s.name.toLowerCase().includes(q)));
-  const el=document.getElementById("slist");
-  if(!list.length){el.innerHTML='<div class="sempty">No students match your search.</div>';return;}
-  el.innerHTML=list.map(s=>`
-    <div class="sitem ${student&&student.id===s.id?"sel":""}" onclick="pickStudent('${s.id}')">
+  const q = (document.getElementById("searchInp").value||"").toLowerCase().trim();
+  const list = STUDENTS.filter(s =>
+    (filt==="all" || s.level===filt) && (!q || s.name.toLowerCase().includes(q))
+  );
+  const el = document.getElementById("slist");
+  if (!list.length) { el.innerHTML='<div class="sempty">No students match your search.</div>'; return; }
+  el.innerHTML = list.map(s => `
+    <div class="sitem ${student && student.id===s.id ? "sel" : ""}" onclick="pickStudent('${s.id}')">
       <div><div class="sname">${s.name}</div><div class="sid">ID ${s.id}</div></div>
       <span class="pill ${s.level==="UG"?"pill-ug":"pill-grad"}">${s.level==="UG"?"Undergrad":"Graduate"}</span>
     </div>`).join("");
 }
 
 function pickStudent(id) {
-  student=STUDENTS.find(s=>s.id===id);
+  student = STUDENTS.find(s => s.id===id);
   filterStudents();
 }
 
-function buildScore() {
-  document.getElementById("sbn").textContent=student.name;
-  document.getElementById("sbm").textContent=`ID ${student.id}`;
-  document.getElementById("sbb").innerHTML=`<span class="pill ${student.level==="UG"?"pill-ug":"pill-grad"}">${student.level==="UG"?"Undergraduate":"Graduate"}</span>`;
-  document.getElementById("clist").innerHTML=CRITERIA.map(c=>`
+// ─── Score screen ─────────────────────────────────────────────────────────────
+function buildScoreScreen() {
+  document.getElementById("sbn").textContent = student.name;
+  document.getElementById("sbm").textContent = `ID ${student.id}`;
+  document.getElementById("sbb").innerHTML =
+    `<span class="pill ${student.level==="UG"?"pill-ug":"pill-grad"}">${student.level==="UG"?"Undergraduate":"Graduate"}</span>`;
+
+  document.getElementById("clist").innerHTML = CRITERIA.map(c => `
     <div class="crit">
       <div class="ctop">
-        <div><div class="ccat">${c.cat}</div><div class="cname">${c.name}</div></div>
+        <div><div class="cname">${c.name}</div></div>
         <div class="cmax">0–${c.max} pts</div>
       </div>
       <div class="srow">
@@ -568,51 +591,63 @@ function buildScore() {
   refreshTotal();
 }
 
-function sync(key,val,fromNum) {
-  const max=CRITERIA.find(c=>c.key===key).max;
-  const v=Math.max(0,Math.min(max,parseFloat(val)||0));
-  SC[key]=v;
-  if(fromNum) document.getElementById("sl_"+key).value=v;
-  else        document.getElementById("nu_"+key).value=v;
+function sync(key, val, fromNum) {
+  const max = CRITERIA.find(c=>c.key===key).max;
+  const v   = Math.max(0, Math.min(max, parseFloat(val)||0));
+  SC[key] = v;
+  if (fromNum) document.getElementById("sl_"+key).value = v;
+  else         document.getElementById("nu_"+key).value = v;
   refreshTotal();
 }
 
 function refreshTotal() {
-  const t=CRITERIA.reduce((a,c)=>a+SC[c.key],0);
-  document.getElementById("totalDisp").innerHTML=`${t%1===0?t:t.toFixed(1)} <small>/ 40</small>`;
+  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  document.getElementById("totalDisp").innerHTML = `${t%1===0?t:t.toFixed(1)} <small>/ ${TOTAL_MAX}</small>`;
 }
 
-function buildReview() {
-  const s=student;
-  document.getElementById("revInit").textContent=s.name.split(",")[0].slice(0,2).toUpperCase();
-  document.getElementById("revName").textContent=s.name;
-  document.getElementById("revMeta").textContent=`ID ${s.id} · ${s.level==="UG"?"Undergraduate — MECE5366":"Graduate — MECE6373"}`;
-  const t=CRITERIA.reduce((a,c)=>a+SC[c.key],0);
-  document.getElementById("revTotal").innerHTML=`${t%1===0?t:t.toFixed(1)} <small>/ 40</small>`;
-  document.getElementById("rlist").innerHTML=CRITERIA.map(c=>{
-    const pct=Math.round((SC[c.key]/c.max)*100);
+// ─── Review screen ────────────────────────────────────────────────────────────
+function buildReviewScreen() {
+  const s = student;
+  document.getElementById("revInit").textContent = s.name.split(",")[0].slice(0,2).toUpperCase();
+  document.getElementById("revName").textContent = s.name;
+  document.getElementById("revMeta").textContent =
+    `ID ${s.id} · ${s.level==="UG"?"Undergraduate — MECE5366":"Graduate — MECE6373"}`;
+
+  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  document.getElementById("revTotal").innerHTML = `${t%1===0?t:t.toFixed(1)} <small>/ ${TOTAL_MAX}</small>`;
+
+  document.getElementById("rlist").innerHTML = CRITERIA.map(c => {
+    const pct = Math.round((SC[c.key]/c.max)*100);
     return `<div class="rrow">
-      <div class="rlabel">${c.name.slice(0,45)}…</div>
+      <div class="rlabel">${c.name}</div>
       <div class="rtrack"><div class="rfill" style="width:${pct}%"></div></div>
       <div class="rscore">${SC[c.key]}/${c.max}</div>
     </div>`;
   }).join("");
-  const com=(document.getElementById("commentsField").value||"").trim();
-  const cp=document.getElementById("cprev");
-  cp.style.display=com?"block":"none";
-  if(com) cp.textContent="💬 "+com;
+
+  const com = (document.getElementById("commentsField").value||"").trim();
+  const cp  = document.getElementById("cprev");
+  cp.style.display = com ? "block" : "none";
+  if (com) cp.textContent = "💬 " + com;
   document.getElementById("errbox").classList.remove("show");
 }
 
-function submit() {
-  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+// ─── Submit ───────────────────────────────────────────────────────────────────
+function submitScores() {
+  const t          = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  const judge      = JUDGES[judgeIdx];
+  // targetRow = student's base row + judge's 0-based offset within that block
+  const targetRow  = student.sheetRow + judgeIdx;
+
   const payload = {
-    judge,
+    judge:       judge.name,
+    affil:       judge.affil,
     studentName: student.name,
     studentId:   student.id,
     level:       student.level==="UG" ? "Undergraduate" : "Graduate",
-    targetRow:   student.sheetRow + JO[judge],
-    s1:SC.s1, s2:SC.s2, s3:SC.s3, s4:SC.s4, s5:SC.s5,
+    targetRow,
+    c1:SC.c1, c2:SC.c2, c3:SC.c3, c4:SC.c4,
+    c5:SC.c5, c6:SC.c6, c7:SC.c7, c8:SC.c8,
     total:    t,
     comments: (document.getElementById("commentsField").value||"").trim()
   };
@@ -621,79 +656,62 @@ function submit() {
   document.getElementById("spin").style.display = "block";
   document.getElementById("subBtn").disabled = true;
 
-  // Apps Script blocks fetch (redirect + CORS). Use a hidden iframe form-POST instead —
-  // this works reliably because browsers allow cross-origin form submissions.
-  const iframeName = "gsSubmit_" + Date.now();
+  const iframeName = "gs_" + Date.now();
   const iframe = document.createElement("iframe");
-  iframe.name = iframeName;
+  iframe.name  = iframeName;
   iframe.style.display = "none";
   document.body.appendChild(iframe);
 
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = SCRIPT_URL;
-  form.target = iframeName;
+  const form   = document.createElement("form");
+  form.method  = "POST";
+  form.action  = SCRIPT_URL;
+  form.target  = iframeName;
   form.style.display = "none";
-
-  // Apps Script reads from e.postData when Content-Type is text/plain via a single field
-  // named "payload" — send JSON as a plain text field so doPost() can parse it.
-  const field = document.createElement("input");
-  field.type  = "hidden";
-  field.name  = "payload";
-  field.value = JSON.stringify(payload);
+  const field  = document.createElement("input");
+  field.type   = "hidden";
+  field.name   = "payload";
+  field.value  = JSON.stringify(payload);
   form.appendChild(field);
   document.body.appendChild(form);
 
-  function cleanup() {
-    try { document.body.removeChild(form); } catch(_) {}
+  let done = false;
+  function finish() {
+    if (done) return; done = true;
+    clearTimeout(timer);
+    showSuccess(payload, t);
+    try { document.body.removeChild(form); }   catch(_) {}
     try { document.body.removeChild(iframe); } catch(_) {}
   }
 
-  // Attach onload AFTER submit so it doesn't fire immediately on iframe creation.
-  // Also guard with a flag so showSuccess only runs once even if both timer
-  // and onload fire (which can happen on some browsers).
-  let done = false;
-  function finish() {
-    if (done) return;
-    done = true;
-    clearTimeout(timer);
-    showSuccess(payload, t);
-    cleanup();
-  }
-
   form.submit();
-
-  // Give Apps Script up to 5 s; iframe.onload fires when the redirect resolves.
   const timer = setTimeout(finish, 5000);
   iframe.onload = finish;
 }
 
+// ─── Success / report ─────────────────────────────────────────────────────────
 function showSuccess(payload, t) {
-  // Reset submit button
   document.getElementById("subTxt").classList.remove("hidden");
   document.getElementById("spin").style.display = "none";
   document.getElementById("subBtn").disabled = false;
 
-  const pct  = Math.round((t / 40) * 100);
+  const pct   = Math.round((t / TOTAL_MAX) * 100);
   const tDisp = t%1===0 ? t : t.toFixed(1);
-  const now  = new Date().toLocaleString();
+  const now   = new Date().toLocaleString();
 
-  document.getElementById("rpt-total").textContent = tDisp;
-  document.getElementById("rpt-student").textContent = payload.studentName;
-  document.getElementById("rpt-studentmeta").innerHTML = `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
-  document.getElementById("rpt-judge").textContent = payload.judge;
-  document.getElementById("rpt-time").textContent  = now;
+  document.getElementById("rpt-total").textContent    = tDisp;
+  document.getElementById("rpt-student").textContent  = payload.studentName;
+  document.getElementById("rpt-studentmeta").innerHTML= `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
+  document.getElementById("rpt-judge").textContent    = payload.judge;
+  document.getElementById("rpt-affil").textContent    = payload.affil;
+  document.getElementById("rpt-time").textContent     = now;
 
   document.getElementById("rpt-breakdown").innerHTML = CRITERIA.map(c => {
-    const val = payload[c.key] !== undefined ? payload[c.key] : SC[c.key];
+    const val    = payload[c.key] !== undefined ? payload[c.key] : SC[c.key];
     const barPct = Math.round((val / c.max) * 100);
     return `
       <div style="margin-bottom:14px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
-          <div>
-            <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-right:6px;">${c.cat}</span>
-            <span style="font-size:13px;color:var(--text);">${c.name}</span>
-          </div>
+          <span style="font-size:13px;color:var(--text);">${c.name}</span>
           <span style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;margin-left:10px;">${val}<span style="font-weight:400;color:var(--faint);">/${c.max}</span></span>
         </div>
         <div style="height:4px;background:#e4e2dc;border-radius:4px;overflow:hidden;">
@@ -714,64 +732,57 @@ function showSuccess(payload, t) {
 
   nav(5);
 
-  // Auto-download as image after a short delay to let the DOM render
-  setTimeout(() => {
-    captureAndDownload(payload, t, true);
-  }, 600);
+  setTimeout(() => captureAndDownload(payload, t), 600);
 }
 
-function captureAndDownload(payload, t, auto) {
-  const fname = `ScoreReport_${(payload||{studentName:student.name}).studentName.replace(/,\s*/g,"_")}_${judge.replace(" ","")}.png`;
-  const el    = document.getElementById("reportCard");
+function captureAndDownload(payload, t) {
+  const pct   = Math.round((t / TOTAL_MAX) * 100);
+  const fname = `ScoreReport_${(payload.studentName||student.name).replace(/,\s*/g,"_")}_${JUDGES[judgeIdx].name.replace(/,\s*/g,"_")}.png`;
 
-  // Animate the pct bar just before capture
-  const pct = Math.round((t/40)*100);
   document.getElementById("rpt-pctbar").style.width = pct + "%";
 
-  html2canvas(el, {
-    scale:       2,          // retina quality
-    useCORS:     true,
-    backgroundColor: "#ffffff",
-    logging:     false,
+  html2canvas(document.getElementById("reportCard"), {
+    scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false
   }).then(canvas => {
-    const a = document.createElement("a");
+    const a    = document.createElement("a");
     a.href     = canvas.toDataURL("image/png");
     a.download = fname;
     a.click();
-
-    // Update notice to reflect success
     document.getElementById("noticeIcon").textContent = "✅";
     document.getElementById("noticeText").innerHTML   =
-      `<strong>Report image downloaded!</strong><br>
-       Check your downloads folder for <em>${fname}</em>. You can also tap <strong>Save report as image</strong> again if needed.`;
+      `<strong>Report image downloaded!</strong><br>Check your downloads folder for <em>${fname}</em>. Tap <strong>Save report as image</strong> to download again.`;
   }).catch(() => {
     document.getElementById("noticeIcon").textContent = "📸";
     document.getElementById("noticeText").innerHTML   =
-      `<strong>Auto-download failed.</strong><br>
-       Please tap <strong>Save report as image</strong> below, or take a screenshot of this report manually.`;
+      `<strong>Auto-download failed.</strong><br>Tap <strong>Save report as image</strong> below, or take a screenshot manually.`;
   });
 }
 
 function saveImage() {
   const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
-  captureAndDownload({studentName: student.name}, t, false);
+  captureAndDownload({studentName: student.name}, t);
 }
 
+// ─── Navigation helpers ───────────────────────────────────────────────────────
 function scoreAnother() {
-  student=null; Object.keys(SC).forEach(k=>SC[k]=0);
-  document.getElementById("searchInp").value="";
-  document.getElementById("commentsField").value="";
-  filterStudents(); nav(2);
+  student = null;
+  Object.keys(SC).forEach(k => SC[k]=0);
+  document.getElementById("searchInp").value   = "";
+  document.getElementById("commentsField").value = "";
+  filterStudents();
+  nav(2);
 }
 
 function changeJudge() {
-  student=null; judge=""; Object.keys(SC).forEach(k=>SC[k]=0);
-  document.getElementById("searchInp").value="";
-  document.getElementById("commentsField").value="";
-  document.querySelectorAll(".jcard").forEach(c=>c.classList.remove("sel"));
+  student = null; judgeIdx = -1;
+  Object.keys(SC).forEach(k => SC[k]=0);
+  document.getElementById("searchInp").value   = "";
+  document.getElementById("commentsField").value = "";
+  document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
   nav(1);
 }
 
+// ─── Init ─────────────────────────────────────────────────────────────────────
 filterStudents();
 </script>
 </body>
