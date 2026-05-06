@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MECE Poster Competition — Judge Scoring</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -349,12 +350,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-    <!-- Screenshot prompt -->
-    <div style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;">
-      <div style="font-size:18px;flex-shrink:0;margin-top:1px">📸</div>
-      <div style="font-size:13px;color:var(--gold);line-height:1.5;">
-        <strong>Save this report for your records.</strong><br>
-        Please <strong>download</strong> this report or take a <strong>screenshot</strong> of this page before scoring another student.
+    <!-- Auto-download notice -->
+    <div id="downloadNotice" style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:18px;flex-shrink:0;margin-top:1px" id="noticeIcon">⏳</div>
+      <div style="font-size:13px;color:var(--gold);line-height:1.5;" id="noticeText">
+        <strong>Preparing your report image…</strong><br>
+        Your score report is being generated and will download automatically.
       </div>
     </div>
 
@@ -415,9 +416,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <!-- Action buttons -->
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
-      <button class="btn btn-dark" onclick="downloadReport()" style="gap:8px;">
+      <button class="btn btn-dark" id="saveImgBtn" onclick="saveImage()" style="gap:8px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download report as HTML
+        Save report as image
       </button>
       <div style="display:flex;gap:10px;">
         <button class="btn btn-outline" onclick="scoreAnother()" style="flex:1;">Score another student</button>
@@ -668,26 +669,21 @@ function submit() {
 }
 
 function showSuccess(payload, t) {
-  // Reset submit button so the judge can submit again for another student.
+  // Reset submit button
   document.getElementById("subTxt").classList.remove("hidden");
   document.getElementById("spin").style.display = "none";
   document.getElementById("subBtn").disabled = false;
 
-  const pct = Math.round((t / 40) * 100);
+  const pct  = Math.round((t / 40) * 100);
   const tDisp = t%1===0 ? t : t.toFixed(1);
-  const now = new Date().toLocaleString();
+  const now  = new Date().toLocaleString();
 
-  // Header
   document.getElementById("rpt-total").textContent = tDisp;
-  // Student info
   document.getElementById("rpt-student").textContent = payload.studentName;
-  document.getElementById("rpt-studentmeta").innerHTML =
-    `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
-  // Judge + time
+  document.getElementById("rpt-studentmeta").innerHTML = `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
   document.getElementById("rpt-judge").textContent = payload.judge;
   document.getElementById("rpt-time").textContent  = now;
 
-  // Score breakdown rows
   document.getElementById("rpt-breakdown").innerHTML = CRITERIA.map(c => {
     const val = payload[c.key] !== undefined ? payload[c.key] : SC[c.key];
     const barPct = Math.round((val / c.max) * 100);
@@ -700,13 +696,12 @@ function showSuccess(payload, t) {
           </div>
           <span style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;margin-left:10px;">${val}<span style="font-weight:400;color:var(--faint);">/${c.max}</span></span>
         </div>
-        <div style="height:4px;background:var(--border);border-radius:4px;overflow:hidden;">
-          <div style="height:100%;width:${barPct}%;background:var(--accent);border-radius:4px;"></div>
+        <div style="height:4px;background:#e4e2dc;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${barPct}%;background:#2a5bd7;border-radius:4px;"></div>
         </div>
       </div>`;
   }).join("");
 
-  // Comments
   const cw = document.getElementById("rpt-comments-wrap");
   if (payload.comments) {
     cw.style.display = "block";
@@ -715,103 +710,51 @@ function showSuccess(payload, t) {
     cw.style.display = "none";
   }
 
-  // Percentage bar (animate after nav)
   document.getElementById("rpt-pct").textContent = pct + "%";
-  setTimeout(() => {
-    document.getElementById("rpt-pctbar").style.width = pct + "%";
-  }, 200);
 
   nav(5);
+
+  // Auto-download as image after a short delay to let the DOM render
+  setTimeout(() => {
+    captureAndDownload(payload, t, true);
+  }, 600);
 }
 
-function downloadReport() {
-  const t    = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
-  const pct  = Math.round((t/40)*100);
-  const tD   = t%1===0 ? t : t.toFixed(1);
-  const now  = new Date().toLocaleString();
-  const fname= `ScoreReport_${student.name.replace(/,\s*/g,"_")}_${judge.replace(" ","")}_${Date.now()}.html`;
+function captureAndDownload(payload, t, auto) {
+  const fname = `ScoreReport_${(payload||{studentName:student.name}).studentName.replace(/,\s*/g,"_")}_${judge.replace(" ","")}.png`;
+  const el    = document.getElementById("reportCard");
 
-  const rows = CRITERIA.map(c => {
-    const val = SC[c.key];
-    const bar = Math.round((val/c.max)*100);
-    return `<tr>
-      <td style="padding:10px 14px;font-size:13px;color:#444;border-bottom:1px solid #eee;">${c.cat}</td>
-      <td style="padding:10px 14px;font-size:13px;color:#1a1917;border-bottom:1px solid #eee;">${c.name}</td>
-      <td style="padding:10px 14px;font-size:13px;font-weight:700;color:#1a1917;text-align:center;border-bottom:1px solid #eee;">${val}/${c.max}</td>
-      <td style="padding:10px 14px;border-bottom:1px solid #eee;">
-        <div style="height:6px;background:#e4e2dc;border-radius:6px;overflow:hidden;min-width:80px;">
-          <div style="height:100%;width:${bar}%;background:#2a5bd7;border-radius:6px;"></div>
-        </div>
-      </td>
-    </tr>`;
-  }).join("");
+  // Animate the pct bar just before capture
+  const pct = Math.round((t/40)*100);
+  document.getElementById("rpt-pctbar").style.width = pct + "%";
 
-  const commentsRow = SC.comments ? `
-    <tr><td colspan="4" style="padding:12px 14px;font-size:13px;color:#444;background:#fafaf8;">
-      <strong>Comments:</strong> ${SC.comments}
-    </td></tr>` : "";
+  html2canvas(el, {
+    scale:       2,          // retina quality
+    useCORS:     true,
+    backgroundColor: "#ffffff",
+    logging:     false,
+  }).then(canvas => {
+    const a = document.createElement("a");
+    a.href     = canvas.toDataURL("image/png");
+    a.download = fname;
+    a.click();
 
-  const html = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-<title>Score Report — ${student.name}</title>
-<style>
-  body{font-family:system-ui,Arial,sans-serif;background:#f5f4f1;margin:0;padding:32px 20px;color:#1a1917}
-  .card{background:#fff;border-radius:12px;overflow:hidden;max-width:680px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,.1)}
-  .hdr{background:#1a1917;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
-  .hdr-title{color:#fff;font-size:18px;font-weight:700}
-  .hdr-sub{color:rgba(255,255,255,.45);font-size:11px;margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
-  .hdr-score{color:#fff;font-size:36px;font-weight:800;text-align:right;line-height:1}
-  .hdr-score small{font-size:14px;opacity:.45;font-weight:400}
-  .meta{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee}
-  .meta-cell{padding:14px 18px}
-  .meta-cell:first-child{border-right:1px solid #eee}
-  .meta-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#9c9890;margin-bottom:4px}
-  .meta-val{font-size:14px;font-weight:600;color:#1a1917}
-  .meta-sub{font-size:11px;color:#6b6760;margin-top:2px}
-  table{width:100%;border-collapse:collapse}
-  .sec-label{padding:14px 18px 6px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#9c9890}
-  .pct-wrap{padding:14px 18px;background:#f9f8f6;border-top:1px solid #eee}
-  .pct-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
-  .pct-bar-bg{height:8px;background:#e4e2dc;border-radius:8px;overflow:hidden}
-  .pct-bar{height:100%;border-radius:8px;background:linear-gradient(90deg,#2a5bd7,#16a34a)}
-  .footer{padding:12px 18px;font-size:11px;color:#9c9890;border-top:1px solid #eee;text-align:center}
-  @media print{body{background:#fff;padding:0}.card{box-shadow:none;border-radius:0}}
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="hdr">
-    <div><div class="hdr-title">MECE Poster Competition</div><div class="hdr-sub">Judge Score Report · Spring 2026</div></div>
-    <div class="hdr-score">${tD}<br><small>/ 40 pts</small></div>
-  </div>
-  <div class="meta">
-    <div class="meta-cell">
-      <div class="meta-label">Student</div>
-      <div class="meta-val">${student.name}</div>
-      <div class="meta-sub">ID ${student.id} · ${student.level==="UG"?"Undergraduate — MECE5366":"Graduate — MECE6373"}</div>
-    </div>
-    <div class="meta-cell">
-      <div class="meta-label">Evaluated by</div>
-      <div class="meta-val">${judge}</div>
-      <div class="meta-sub">${now}</div>
-    </div>
-  </div>
-  <div class="sec-label">Score Breakdown</div>
-  <table><tbody>${rows}${commentsRow}</tbody></table>
-  <div class="pct-wrap">
-    <div class="pct-top"><span style="color:#6b6760;font-weight:500">Overall performance</span><strong>${pct}%</strong></div>
-    <div class="pct-bar-bg"><div class="pct-bar" style="width:${pct}%"></div></div>
-  </div>
-  <div class="footer">Generated by MECE Poster Competition Judge App · ${now}</div>
-</div>
-</body></html>`;
+    // Update notice to reflect success
+    document.getElementById("noticeIcon").textContent = "✅";
+    document.getElementById("noticeText").innerHTML   =
+      `<strong>Report image downloaded!</strong><br>
+       Check your downloads folder for <em>${fname}</em>. You can also tap <strong>Save report as image</strong> again if needed.`;
+  }).catch(() => {
+    document.getElementById("noticeIcon").textContent = "📸";
+    document.getElementById("noticeText").innerHTML   =
+      `<strong>Auto-download failed.</strong><br>
+       Please tap <strong>Save report as image</strong> below, or take a screenshot of this report manually.`;
+  });
+}
 
-  const blob = new Blob([html], {type:"text/html"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = fname;
-  a.click();
-  URL.revokeObjectURL(a.href);
+function saveImage() {
+  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  captureAndDownload({studentName: student.name}, t, false);
 }
 
 function scoreAnother() {
