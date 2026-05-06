@@ -567,28 +567,36 @@ function submit() {
   form.appendChild(field);
   document.body.appendChild(form);
 
-  // Show success after 3 s — iframe load fires unreliably cross-origin,
-  // so we use a short timeout which is always enough for Apps Script to write.
-  const timer = setTimeout(() => {
-    showSuccess(payload, t);
-    cleanup();
-  }, 3000);
-
-  iframe.onload = () => {
-    clearTimeout(timer);
-    showSuccess(payload, t);
-    cleanup();
-  };
-
   function cleanup() {
     try { document.body.removeChild(form); } catch(_) {}
     try { document.body.removeChild(iframe); } catch(_) {}
   }
 
+  // Attach onload AFTER submit so it doesn't fire immediately on iframe creation.
+  // Also guard with a flag so showSuccess only runs once even if both timer
+  // and onload fire (which can happen on some browsers).
+  let done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    showSuccess(payload, t);
+    cleanup();
+  }
+
   form.submit();
+
+  // Give Apps Script up to 5 s; iframe.onload fires when the redirect resolves.
+  const timer = setTimeout(finish, 5000);
+  iframe.onload = finish;
 }
 
 function showSuccess(payload, t) {
+  // Reset submit button so the judge can submit again for another student.
+  document.getElementById("subTxt").classList.remove("hidden");
+  document.getElementById("spin").style.display = "none";
+  document.getElementById("subBtn").disabled = false;
+
   document.getElementById("sucCard").innerHTML = [
     ["Judge",   payload.judge],
     ["Student", payload.studentName],
