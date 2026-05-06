@@ -339,16 +339,92 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
   <!-- Screen 5 -->
   <div class="screen" id="sc5">
-    <div class="suc-wrap">
-      <div class="suc-ring">✓</div>
-      <div class="suc-title">Scores submitted!</div>
-      <div class="suc-body">Your evaluation has been recorded in the score sheet.</div>
-      <div class="suc-card" id="sucCard"></div>
-      <div class="suc-btns">
-        <button class="btn btn-dark" onclick="scoreAnother()">Score another student</button>
-        <button class="btn btn-outline" onclick="changeJudge()">Change judge</button>
+
+    <!-- Success banner -->
+    <div style="display:flex;align-items:center;gap:14px;background:var(--green-bg);border:1px solid rgba(22,163,74,.22);border-radius:var(--r);padding:16px 18px;margin-bottom:24px;">
+      <div style="width:40px;height:40px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)">✓</div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--green);letter-spacing:-.2px">Scores submitted successfully!</div>
+        <div style="font-size:13px;color:#4a7a5a;margin-top:2px">Your evaluation has been recorded in the master score sheet.</div>
       </div>
     </div>
+
+    <!-- Screenshot prompt -->
+    <div style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:18px;flex-shrink:0;margin-top:1px">📸</div>
+      <div style="font-size:13px;color:var(--gold);line-height:1.5;">
+        <strong>Save this report for your records.</strong><br>
+        Please <strong>download</strong> this report or take a <strong>screenshot</strong> of this page before scoring another student.
+      </div>
+    </div>
+
+    <!-- Full score report (printable) -->
+    <div id="reportCard" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:20px;">
+
+      <!-- Report header -->
+      <div style="background:var(--text);padding:18px 20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px">MECE Poster Competition</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;text-transform:uppercase;letter-spacing:.6px">Judge Score Report · Spring 2026</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1" id="rpt-total"></div>
+            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">out of 40 pts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student + Judge info -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
+        <div style="padding:14px 18px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Student</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text)" id="rpt-student"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-studentmeta"></div>
+        </div>
+        <div style="padding:14px 18px;">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Evaluated by</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text)" id="rpt-judge"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-time"></div>
+        </div>
+      </div>
+
+      <!-- Score breakdown -->
+      <div style="padding:16px 18px 4px;">
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:12px">Score Breakdown</div>
+        <div id="rpt-breakdown"></div>
+      </div>
+
+      <!-- Comments -->
+      <div id="rpt-comments-wrap" style="padding:0 18px 16px;display:none;">
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:6px">Comments</div>
+        <div id="rpt-comments" style="font-size:13px;color:var(--muted);background:var(--surface2);border-radius:var(--rsm);padding:10px 13px;border:1px solid var(--border);line-height:1.55;"></div>
+      </div>
+
+      <!-- Percentage bar -->
+      <div style="padding:14px 18px;border-top:1px solid var(--border);background:var(--surface2);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+          <div style="font-size:12px;font-weight:500;color:var(--muted)">Overall performance</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text)" id="rpt-pct"></div>
+        </div>
+        <div style="height:6px;background:var(--border);border-radius:6px;overflow:hidden;">
+          <div id="rpt-pctbar" style="height:100%;border-radius:6px;background:linear-gradient(90deg,#2a5bd7,#16a34a);transition:width .6s ease;width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
+      <button class="btn btn-dark" onclick="downloadReport()" style="gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download report as HTML
+      </button>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-outline" onclick="scoreAnother()" style="flex:1;">Score another student</button>
+        <button class="btn btn-outline" onclick="changeJudge()" style="flex:1;">Change judge</button>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -597,14 +673,145 @@ function showSuccess(payload, t) {
   document.getElementById("spin").style.display = "none";
   document.getElementById("subBtn").disabled = false;
 
-  document.getElementById("sucCard").innerHTML = [
-    ["Judge",   payload.judge],
-    ["Student", payload.studentName],
-    ["Level",   payload.level],
-    ["Score",   `${t%1===0?t:t.toFixed(1)} / 40 pts`],
-    ["Time",    new Date().toLocaleString()]
-  ].map(([k,v]) => `<div class="suc-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join("");
+  const pct = Math.round((t / 40) * 100);
+  const tDisp = t%1===0 ? t : t.toFixed(1);
+  const now = new Date().toLocaleString();
+
+  // Header
+  document.getElementById("rpt-total").textContent = tDisp;
+  // Student info
+  document.getElementById("rpt-student").textContent = payload.studentName;
+  document.getElementById("rpt-studentmeta").innerHTML =
+    `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
+  // Judge + time
+  document.getElementById("rpt-judge").textContent = payload.judge;
+  document.getElementById("rpt-time").textContent  = now;
+
+  // Score breakdown rows
+  document.getElementById("rpt-breakdown").innerHTML = CRITERIA.map(c => {
+    const val = payload[c.key] !== undefined ? payload[c.key] : SC[c.key];
+    const barPct = Math.round((val / c.max) * 100);
+    return `
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
+          <div>
+            <span style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-right:6px;">${c.cat}</span>
+            <span style="font-size:13px;color:var(--text);">${c.name}</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;margin-left:10px;">${val}<span style="font-weight:400;color:var(--faint);">/${c.max}</span></span>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${barPct}%;background:var(--accent);border-radius:4px;"></div>
+        </div>
+      </div>`;
+  }).join("");
+
+  // Comments
+  const cw = document.getElementById("rpt-comments-wrap");
+  if (payload.comments) {
+    cw.style.display = "block";
+    document.getElementById("rpt-comments").textContent = payload.comments;
+  } else {
+    cw.style.display = "none";
+  }
+
+  // Percentage bar (animate after nav)
+  document.getElementById("rpt-pct").textContent = pct + "%";
+  setTimeout(() => {
+    document.getElementById("rpt-pctbar").style.width = pct + "%";
+  }, 200);
+
   nav(5);
+}
+
+function downloadReport() {
+  const t    = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  const pct  = Math.round((t/40)*100);
+  const tD   = t%1===0 ? t : t.toFixed(1);
+  const now  = new Date().toLocaleString();
+  const fname= `ScoreReport_${student.name.replace(/,\s*/g,"_")}_${judge.replace(" ","")}_${Date.now()}.html`;
+
+  const rows = CRITERIA.map(c => {
+    const val = SC[c.key];
+    const bar = Math.round((val/c.max)*100);
+    return `<tr>
+      <td style="padding:10px 14px;font-size:13px;color:#444;border-bottom:1px solid #eee;">${c.cat}</td>
+      <td style="padding:10px 14px;font-size:13px;color:#1a1917;border-bottom:1px solid #eee;">${c.name}</td>
+      <td style="padding:10px 14px;font-size:13px;font-weight:700;color:#1a1917;text-align:center;border-bottom:1px solid #eee;">${val}/${c.max}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eee;">
+        <div style="height:6px;background:#e4e2dc;border-radius:6px;overflow:hidden;min-width:80px;">
+          <div style="height:100%;width:${bar}%;background:#2a5bd7;border-radius:6px;"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+
+  const commentsRow = SC.comments ? `
+    <tr><td colspan="4" style="padding:12px 14px;font-size:13px;color:#444;background:#fafaf8;">
+      <strong>Comments:</strong> ${SC.comments}
+    </td></tr>` : "";
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Score Report — ${student.name}</title>
+<style>
+  body{font-family:system-ui,Arial,sans-serif;background:#f5f4f1;margin:0;padding:32px 20px;color:#1a1917}
+  .card{background:#fff;border-radius:12px;overflow:hidden;max-width:680px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+  .hdr{background:#1a1917;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+  .hdr-title{color:#fff;font-size:18px;font-weight:700}
+  .hdr-sub{color:rgba(255,255,255,.45);font-size:11px;margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
+  .hdr-score{color:#fff;font-size:36px;font-weight:800;text-align:right;line-height:1}
+  .hdr-score small{font-size:14px;opacity:.45;font-weight:400}
+  .meta{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee}
+  .meta-cell{padding:14px 18px}
+  .meta-cell:first-child{border-right:1px solid #eee}
+  .meta-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#9c9890;margin-bottom:4px}
+  .meta-val{font-size:14px;font-weight:600;color:#1a1917}
+  .meta-sub{font-size:11px;color:#6b6760;margin-top:2px}
+  table{width:100%;border-collapse:collapse}
+  .sec-label{padding:14px 18px 6px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#9c9890}
+  .pct-wrap{padding:14px 18px;background:#f9f8f6;border-top:1px solid #eee}
+  .pct-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+  .pct-bar-bg{height:8px;background:#e4e2dc;border-radius:8px;overflow:hidden}
+  .pct-bar{height:100%;border-radius:8px;background:linear-gradient(90deg,#2a5bd7,#16a34a)}
+  .footer{padding:12px 18px;font-size:11px;color:#9c9890;border-top:1px solid #eee;text-align:center}
+  @media print{body{background:#fff;padding:0}.card{box-shadow:none;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hdr">
+    <div><div class="hdr-title">MECE Poster Competition</div><div class="hdr-sub">Judge Score Report · Spring 2026</div></div>
+    <div class="hdr-score">${tD}<br><small>/ 40 pts</small></div>
+  </div>
+  <div class="meta">
+    <div class="meta-cell">
+      <div class="meta-label">Student</div>
+      <div class="meta-val">${student.name}</div>
+      <div class="meta-sub">ID ${student.id} · ${student.level==="UG"?"Undergraduate — MECE5366":"Graduate — MECE6373"}</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Evaluated by</div>
+      <div class="meta-val">${judge}</div>
+      <div class="meta-sub">${now}</div>
+    </div>
+  </div>
+  <div class="sec-label">Score Breakdown</div>
+  <table><tbody>${rows}${commentsRow}</tbody></table>
+  <div class="pct-wrap">
+    <div class="pct-top"><span style="color:#6b6760;font-weight:500">Overall performance</span><strong>${pct}%</strong></div>
+    <div class="pct-bar-bg"><div class="pct-bar" style="width:${pct}%"></div></div>
+  </div>
+  <div class="footer">Generated by MECE Poster Competition Judge App · ${now}</div>
+</div>
+</body></html>`;
+
+  const blob = new Blob([html], {type:"text/html"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 function scoreAnother() {
