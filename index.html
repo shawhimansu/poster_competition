@@ -185,6 +185,37 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .suc-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--green);letter-spacing:-.3px;margin-bottom:6px;text-align:center}
 .suc-body{font-size:14px;color:var(--muted);margin-bottom:20px;text-align:center}
 
+/* ── VENUE MAP MODAL ── */
+.map-overlay{position:fixed;inset:0;background:rgba(20,18,16,.55);backdrop-filter:blur(3px);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.map-sheet{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:680px;max-height:92vh;display:flex;flex-direction:column;animation:slideUp .28s cubic-bezier(.32,1,.36,1)}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+.map-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.map-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text)}
+.map-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.map-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--muted);transition:background .15s}
+.map-close:hover{background:var(--border)}
+.map-legend{display:flex;gap:14px;padding:10px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0}
+.map-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.map-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.map-scroll{overflow-y:auto;padding:16px 16px 24px;flex:1}
+.venue-map{position:relative;background:#fff;border:2px solid #ccc;border-radius:8px;overflow:hidden;font-family:'Inter',system-ui,sans-serif;user-select:none}
+
+/* map zone base */
+.mz{position:absolute;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;text-align:center;line-height:1.2;transition:opacity .2s}
+/* walls / border zones */
+.mz-wall{background:#f2d0c8;border:1px solid #d4998c;color:#7a3828;font-size:10px}
+/* interior poster zones — default (not assigned) */
+.mz-poster{background:#d4edda;border:2px solid #8fbc9a;color:#1a5c2a;cursor:default}
+/* assigned to this judge */
+.mz-assigned{background:#2a5bd7;border:2px solid #1a3fa0;color:#fff;box-shadow:0 2px 8px rgba(42,91,215,.4)}
+/* utility zones */
+.mz-util{background:#cfe2ff;border:1px solid #8fb4e8;color:#1a3a6a;font-size:10px}
+.mz-extra{background:#fff3cd;border:1px solid #d4a800;color:#7a5a00;font-size:10px}
+.mz-entrance{background:#ffc107;border:2px solid #d4a800;color:#3a2800;font-size:11px;font-weight:700}
+.mz-ramp{background:#f0f0f0;border:1px solid #bbb;color:#555;font-size:10px}
+.mz-label{background:transparent;border:none;color:var(--faint);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+
 .hidden{display:none!important}
 @media(max-width:600px){
   .main{padding:20px 14px 48px}
@@ -255,9 +286,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <!-- ══ SCREEN 2: Student Selection ══ -->
   <div class="screen" id="sc2">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js2"></div></div>
-    <div class="slabel">Step 2 of 4</div>
-    <div class="stitle">Select a student</div>
-    <div class="ssub">Only your assigned students are shown. Tap one to score them.</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div>
+        <div class="slabel">Step 2 of 4</div>
+        <div class="stitle" style="margin-bottom:2px">Select a student</div>
+      </div>
+      <button onclick="openMap()" style="display:flex;align-items:center;gap:7px;padding:9px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rsm);font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:inherit;transition:all .15s;flex-shrink:0;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+        Venue Map
+      </button>
+    </div>
+    <div class="ssub" style="margin-bottom:12px">Only your assigned students are shown. Tap one to score them.</div>
 
     <div class="status-legend">
       <div class="legend-item"><span class="pill pill-done">✓ Scored</span> Already submitted</div>
@@ -273,6 +312,27 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="btnrow" style="margin-top:18px">
       <button class="btn btn-outline" onclick="nav(1)">← Back</button>
       <button class="btn btn-dark" onclick="nav(3)">Score this student →</button>
+    </div>
+  </div>
+
+  <!-- ══ VENUE MAP MODAL ══ -->
+  <div class="map-overlay hidden" id="mapOverlay" onclick="handleOverlayClick(event)">
+    <div class="map-sheet" id="mapSheet">
+      <div class="map-header">
+        <div>
+          <div class="map-title">📍 Venue Map</div>
+          <div class="map-sub">Machine Learning Competition — Poster Layout</div>
+        </div>
+        <button class="map-close" onclick="closeMap()">✕</button>
+      </div>
+      <div class="map-legend">
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#2a5bd7;border:1px solid #1a3fa0"></div>Your assigned posters</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#d4edda;border:1px solid #8fbc9a"></div>Other posters</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:#f2d0c8;border:1px solid #d4998c"></div>Wall / corridor</div>
+      </div>
+      <div class="map-scroll">
+        <div class="venue-map" id="venueMap" style="width:100%;aspect-ratio:0.78"></div>
+      </div>
     </div>
   </div>
 
@@ -887,6 +947,150 @@ function changeJudge() {
   document.getElementById("commentsField").value = "";
   document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
   nav(1);
+}
+
+// ─── VENUE MAP ────────────────────────────────────────────────────────────────
+// All zones defined as % of container: {id, label, x, y, w, h, type}
+// x/y/w/h are percentages of the map container width/height
+const MAP_ZONES = [
+  // ── Outer wall corridors (pink) ──
+  {id:"wall-top",    label:"",          x:0,    y:0,    w:100,  h:3.5,  type:"wall"},
+  {id:"wall-bot",    label:"",          x:0,    y:96.5, w:100,  h:3.5,  type:"wall"},
+  {id:"wall-left",   label:"",          x:0,    y:0,    w:3,    h:100,  type:"wall"},
+  {id:"wall-right",  label:"",          x:97,   y:0,    w:3,    h:100,  type:"wall"},
+
+  // ── Left-side wall zones (rotated labels) ──
+  {id:"nametags",    label:"Name tags\n/ Food",  x:0.5,  y:5,    w:5.5,  h:22,   type:"wall", rotate:true},
+  {id:"U10-U12",     label:"U10–U12",  x:0.5,  y:36,   w:5.5,  h:18,   type:"wall", rotate:true},
+  {id:"U01-U04",     label:"U01–U04",  x:0.5,  y:68,   w:5.5,  h:22,   type:"wall", rotate:true},
+
+  // ── Inner left wall strip ──
+  {id:"U04-U10",     label:"U04–U10",  x:6.5,  y:27,   w:5,    h:43,   type:"wall", rotate:true},
+
+  // ── Right-side wall zones ──
+  {id:"U19-U21",     label:"U19–U21",  x:91,   y:5,    w:5.5,  h:24,   type:"wall", rotate:true},
+  {id:"U25-U28",     label:"U25–U28",  x:91,   y:36,   w:5.5,  h:22,   type:"wall", rotate:true},
+  {id:"U22-U24",     label:"U22–U24",  x:91,   y:68,   w:5.5,  h:22,   type:"wall", rotate:true},
+
+  // ── Top area ──
+  {id:"extra-table", label:"Extra\nTable",  x:14,   y:4,    w:14,   h:7,    type:"extra"},
+  {id:"U15-U16",     label:"U15–U16",  x:52,   y:4,    w:18,   h:7,    type:"wall"},
+  {id:"U13-U14",     label:"U13–U14",  x:14,   y:13,   w:14,   h:7,    type:"wall"},
+  {id:"U17-U18",     label:"U17–U18",  x:52,   y:13,   w:18,   h:7,    type:"wall"},
+
+  // ── Interior poster boards ──
+  // G10-G11 and G12-G13 (small horizontal, top interior)
+  {id:"G10-G11",     label:"G10–G11",  x:18,   y:22,   w:16,   h:8,    type:"poster", pids:["G10","G11"]},
+  {id:"G12-G13",     label:"G12–G13",  x:52,   y:22,   w:16,   h:8,    type:"poster", pids:["G12","G13"]},
+
+  // G03-G09 (tall vertical, left interior)
+  {id:"G03-G09",     label:"G03–G09",  x:18,   y:31,   w:11,   h:50,   type:"poster", pids:["G03","G04","G05","G06","G07","G08","G09"], rotate:true},
+
+  // G14-G18 (tall vertical, right interior)
+  {id:"G14-G18",     label:"G14–G18",  x:62,   y:31,   w:11,   h:45,   type:"poster", pids:["G14","G15","G16","G17","G18"], rotate:true},
+
+  // Pipeline (utility, center)
+  {id:"pipeline",    label:"Pipeline",  x:40,   y:32,   w:9,    h:22,   type:"util", rotate:true},
+
+  // G19-G20 (small vertical, lower center)
+  {id:"G19-G20",     label:"G19–G20",  x:40,   y:71,   w:9,    h:17,   type:"poster", pids:["G19","G20"], rotate:true},
+
+  // G01-G02 (bottom left interior)
+  {id:"G01-G02",     label:"G01–G02",  x:18,   y:83,   w:16,   h:9,    type:"poster", pids:["G01","G02"]},
+
+  // Ramp
+  {id:"ramp",        label:"Ramp",     x:52,   y:77,   w:22,   h:15,   type:"ramp"},
+
+  // Entrance
+  {id:"entrance",    label:"Entrance", x:34,   y:90,   w:16,   h:7,    type:"entrance"},
+];
+
+// Which poster IDs appear in each zone
+function getZonePids(zone) { return zone.pids || []; }
+
+function getMyPids() {
+  if (judgeIdx < 0) return new Set();
+  const judge   = JUDGES[judgeIdx];
+  const dataset = judge.level === "Graduate" ? GRAD_DATA : UG_DATA;
+  const mine    = myStudents.map(s => s.pid);
+  return new Set(mine);
+}
+
+function openMap() {
+  const overlay = document.getElementById("mapOverlay");
+  overlay.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  renderMap();
+}
+
+function closeMap() {
+  document.getElementById("mapOverlay").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById("mapOverlay")) closeMap();
+}
+
+function renderMap() {
+  const container = document.getElementById("venueMap");
+  const myPids    = getMyPids();
+  container.innerHTML = "";
+
+  MAP_ZONES.forEach(zone => {
+    const el = document.createElement("div");
+    el.style.cssText = `left:${zone.x}%;top:${zone.y}%;width:${zone.w}%;height:${zone.h}%;position:absolute;`;
+
+    // Determine if any of this zone's pids belong to the judge
+    const zonePids   = getZonePids(zone);
+    const isAssigned = zonePids.length > 0 && zonePids.some(p => myPids.has(p));
+
+    let cls = "mz ";
+    if      (zone.type === "wall")     cls += "mz-wall";
+    else if (zone.type === "util")     cls += "mz-util";
+    else if (zone.type === "extra")    cls += "mz-extra";
+    else if (zone.type === "entrance") cls += "mz-entrance";
+    else if (zone.type === "ramp")     cls += "mz-ramp";
+    else if (zone.type === "poster")   cls += isAssigned ? "mz-assigned" : "mz-poster";
+
+    el.className = cls;
+
+    // Label
+    if (zone.label) {
+      const span = document.createElement("span");
+      span.textContent = zone.label;
+      span.style.cssText = "display:block;padding:3px 2px;word-break:break-word;";
+      if (zone.rotate) {
+        span.style.writingMode = "vertical-rl";
+        span.style.transform   = "rotate(180deg)";
+        span.style.textAlign   = "center";
+        span.style.height      = "100%";
+        span.style.display     = "flex";
+        span.style.alignItems  = "center";
+        span.style.justifyContent = "center";
+      }
+      el.appendChild(span);
+    }
+
+    // Tooltip showing which assigned pids are here
+    if (isAssigned) {
+      const assignedHere = zonePids.filter(p => myPids.has(p));
+      el.title = "Your posters: " + assignedHere.join(", ");
+      // Small star badge
+      const badge = document.createElement("div");
+      badge.textContent = "★";
+      badge.style.cssText = "position:absolute;top:3px;right:4px;font-size:11px;color:rgba(255,255,255,.8);line-height:1";
+      el.appendChild(badge);
+    }
+
+    container.appendChild(el);
+  });
+
+  // ── Title overlay ──
+  const title = document.createElement("div");
+  title.style.cssText = "position:absolute;top:0;left:0;right:0;background:rgba(220,0,0,.88);color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-align:center;padding:5px 8px;letter-spacing:-.1px;z-index:2";
+  title.textContent = "Machine Learning Competition — Poster Layout";
+  container.appendChild(title);
 }
 
 // Focus first digit on load
