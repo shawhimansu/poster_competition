@@ -14,7 +14,8 @@
   --text:#1a1917;--muted:#6b6760;--faint:#9c9890;
   --accent:#2a5bd7;--accent-bg:#eef2fd;--accent2:#1a3fa0;
   --green:#16a34a;--green-bg:#e8f5ee;
-  --red:#c0392b;--gold:#8a6a14;--gold-bg:#fdf6e3;
+  --red:#c0392b;--red-bg:#fdf0ef;
+  --gold:#8a6a14;--gold-bg:#fdf6e3;
   --ug:#1a5fb4;--ug-bg:#ddeafe;
   --grad:#6b3fa0;--grad-bg:#ede9f8;
   --r:12px;--rsm:8px;
@@ -23,136 +24,148 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .shell{min-height:100vh;display:flex;flex-direction:column}
 
 /* Top bar */
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .brand{display:flex;align-items:center;gap:10px}
-.brand-icon{width:32px;height:32px;background:var(--text);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px}
-.brand-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:-0.2px}
-.topbar-sub{font-size:12px;color:var(--faint);font-weight:500;letter-spacing:0.4px;text-transform:uppercase}
+.brand-icon{width:30px;height:30px;background:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.brand-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.2px}
+.topbar-sub{font-size:11px;color:var(--faint);font-weight:500;letter-spacing:0.4px;text-transform:uppercase}
 
 /* Stepper */
-.stepper-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px}
-.stepper{max-width:680px;margin:0 auto;display:flex;height:52px;align-items:center}
+.stepper-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px}
+.stepper{max-width:680px;margin:0 auto;display:flex;height:50px;align-items:center}
 .step{flex:1;display:flex;justify-content:center;position:relative}
-.step:not(:last-child)::after{content:'';position:absolute;left:calc(50% + 16px);right:calc(-50% + 16px);top:50%;height:1px;background:var(--border)}
+.step:not(:last-child)::after{content:'';position:absolute;left:calc(50% + 14px);right:calc(-50% + 14px);top:50%;height:1px;background:var(--border)}
 .step.done:not(:last-child)::after{background:var(--accent)}
-.step-inner{display:flex;align-items:center;gap:7px;position:relative;z-index:1}
-.step-num{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--faint);transition:all .2s;flex-shrink:0}
+.step-inner{display:flex;align-items:center;gap:6px;position:relative;z-index:1}
+.step-num{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--faint);transition:all .2s;flex-shrink:0}
 .step.active .step-num{border-color:var(--accent);background:var(--accent);color:#fff}
 .step.done .step-num{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
-.step-lbl{font-size:12px;font-weight:500;color:var(--faint);white-space:nowrap}
+.step-lbl{font-size:11px;font-weight:500;color:var(--faint);white-space:nowrap}
 .step.active .step-lbl{color:var(--accent);font-weight:600}
 .step.done .step-lbl{color:var(--accent)}
 
 /* Main */
-.main{flex:1;padding:36px 28px 64px;max-width:680px;margin:0 auto;width:100%}
+.main{flex:1;padding:32px 24px 64px;max-width:680px;margin:0 auto;width:100%}
 .screen{display:none}
-.screen.active{display:block;animation:fadeUp .26s ease}
+.screen.active{display:block;animation:fadeUp .24s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* Typography */
 .slabel{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin-bottom:5px}
-.stitle{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.5px;color:var(--text);line-height:1.2;margin-bottom:6px}
-.ssub{font-size:14px;color:var(--muted);margin-bottom:30px;line-height:1.5}
+.stitle{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.5px;color:var(--text);line-height:1.2;margin-bottom:6px}
+.ssub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.5}
 
-/* Judge strip */
-.jstrip{display:flex;align-items:center;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+/* ── ACCESS CODE SCREEN ── */
+.code-wrap{display:flex;flex-direction:column;align-items:center;padding:20px 0 10px}
+.lock-icon{width:64px;height:64px;background:var(--text);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:24px}
+.code-inputs{display:flex;gap:12px;margin-bottom:8px}
+.code-digit{width:56px;height:68px;border:2px solid var(--border);border-radius:var(--r);background:var(--surface);font-family:'Syne',sans-serif;font-size:28px;font-weight:700;text-align:center;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;-webkit-text-security:disc;cursor:pointer}
+.code-digit:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,91,215,.12)}
+.code-digit.filled{border-color:var(--border2);background:var(--surface2)}
+.code-digit.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.12);animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.code-error{font-size:13px;color:var(--red);margin-top:8px;min-height:20px;text-align:center}
+.code-hint{font-size:12px;color:var(--faint);margin-top:16px;text-align:center}
+
+/* ── JUDGE CARDS ── */
+.jstrip{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .jstrip-lbl{font-size:12px;color:var(--muted)}
-.pill{display:inline-flex;align-items:center;padding:3px 11px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.1px}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
 .pill-gold{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(138,106,20,.18)}
 .pill-ug{background:var(--ug-bg);color:var(--ug)}
 .pill-grad{background:var(--grad-bg);color:var(--grad)}
+.pill-done{background:var(--green-bg);color:var(--green);border:1px solid rgba(22,163,74,.2)}
+.pill-pending{background:#fff8ec;color:#92610a;border:1px solid rgba(146,97,10,.2)}
+.pill-loading{background:var(--surface2);color:var(--faint);border:1px solid var(--border)}
 
-/* Judge cards — 3-col grid for 12 judges */
-.jgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.jgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
 .jcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;user-select:none}
 .jcard:hover{border-color:var(--border2);background:var(--surface2)}
 .jcard.sel{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
-.javatar{width:34px;height:34px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .15s}
+.javatar{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 .jcard.sel .javatar{background:rgba(42,91,215,.12);border-color:rgba(42,91,215,.25)}
-.jname{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.jname{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
 .jcard.sel .jname{color:var(--accent2)}
 .jaffil{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
 
-/* Warn */
 .warn{font-size:13px;color:var(--red);margin-bottom:14px;display:none;align-items:center;gap:6px}
 .warn.show{display:flex}
 
-/* Search */
+/* ── STUDENT LIST ── */
 .search-wrap{position:relative;margin-bottom:10px}
 .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none}
 .search-wrap input{width:100%;padding:10px 14px 10px 38px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}
 .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
 .search-wrap input::placeholder{color:var(--faint)}
 
-/* Filter tabs */
-.ftabs{display:flex;gap:4px;margin-bottom:12px}
-.ftab{padding:5px 14px;border-radius:100px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .14s;font-family:inherit}
-.ftab:hover{border-color:var(--border2);color:var(--text)}
-.ftab.on{background:var(--text);border-color:var(--text);color:#fff}
-
-/* Student list */
-.slist{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;max-height:360px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.slist{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;max-height:420px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .slist::-webkit-scrollbar{width:4px}
 .slist::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.sitem{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;gap:12px}
+
+.sitem{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;gap:12px}
 .sitem:last-child{border-bottom:none}
 .sitem:hover{background:var(--surface2)}
 .sitem.sel{background:var(--accent-bg);border-left:2.5px solid var(--accent);padding-left:13.5px}
-.sname{font-size:14px;font-weight:500;color:var(--text)}
-.sid{font-size:11px;color:var(--faint);margin-top:1px;font-variant-numeric:tabular-nums}
+.sitem.done-item{opacity:.72}
+.sitem-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.poster-id{font-size:11px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums;min-width:30px;flex-shrink:0}
+.sitem.sel .poster-id{color:var(--accent)}
+.sname{font-size:14px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sid{font-size:11px;color:var(--faint);margin-top:1px}
+.sitem-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .sempty{padding:28px;text-align:center;font-size:13px;color:var(--faint)}
 
-/* Student bar */
-.sbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+/* loading shimmer */
+.shimmer{background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:4px;height:12px;display:inline-block}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Status legend */
+.status-legend{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
+
+/* ── SCORE SCREEN ── */
+.sbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .sbar-name{font-size:15px;font-weight:600;color:var(--text)}
 .sbar-meta{font-size:12px;color:var(--muted);margin-top:2px}
 
-/* Criteria */
-.clist{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
-.crit{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px}
-.ccat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:3px}
-.cname{font-size:13px;font-weight:500;color:var(--text);line-height:1.45}
-.cmax{font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;background:var(--accent-bg);padding:3px 9px;border-radius:100px;flex-shrink:0}
+.clist{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.crit{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px}
+.cname{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.cmax{font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;background:var(--accent-bg);padding:2px 8px;border-radius:100px;flex-shrink:0}
 .srow{display:flex;align-items:center;gap:12px}
 .score-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:var(--border);outline:none;cursor:pointer}
 .score-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);border:2.5px solid #fff;box-shadow:0 1px 4px rgba(42,91,215,.3);cursor:pointer}
 .score-num{width:52px;height:36px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);font-size:15px;font-weight:600;font-family:inherit;color:var(--text);text-align:center;outline:none;transition:border-color .15s,box-shadow .15s}
 .score-num:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
 
-/* Total bar */
-.tbar{display:flex;align-items:center;justify-content:space-between;background:var(--text);color:#fff;border-radius:var(--r);padding:16px 22px;margin-bottom:20px}
+.tbar{display:flex;align-items:center;justify-content:space-between;background:var(--text);color:#fff;border-radius:var(--r);padding:16px 20px;margin-bottom:18px}
 .tbar-lbl{font-size:13px;font-weight:500;opacity:.65}
 .tbar-sub{font-size:11px;opacity:.4;margin-top:2px}
-.tbar-score{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1}
-.tbar-score small{font-size:16px;opacity:.45;font-weight:500;letter-spacing:0}
+.tbar-score{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1}
+.tbar-score small{font-size:15px;opacity:.45;font-weight:500;letter-spacing:0}
 
-/* Comments */
 .flabel{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.cfield{width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--text);resize:vertical;min-height:80px;outline:none;transition:border-color .15s,box-shadow .15s;margin-bottom:20px}
+.cfield{width:100%;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--text);resize:vertical;min-height:75px;outline:none;transition:border-color .15s,box-shadow .15s;margin-bottom:18px}
 .cfield:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,91,215,.1)}
 .cfield::placeholder{color:var(--faint)}
 
-/* Review */
-.rev-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:14px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.rev-init{width:44px;height:44px;border-radius:12px;background:var(--accent-bg);border:1px solid rgba(42,91,215,.18);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--accent);flex-shrink:0}
+/* ── REVIEW ── */
+.rev-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.rev-init{width:42px;height:42px;border-radius:11px;background:var(--accent-bg);border:1px solid rgba(42,91,215,.18);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0}
 .rev-name{font-size:15px;font-weight:600;color:var(--text)}
 .rev-meta{font-size:12px;color:var(--muted);margin-top:2px}
-.rlist{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.rrow{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 14px;display:flex;align-items:center;gap:12px}
-.rlabel{font-size:11px;color:var(--muted);min-width:130px;flex-shrink:0;line-height:1.4}
+.rlist{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.rrow{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:9px 13px;display:flex;align-items:center;gap:12px}
+.rlabel{font-size:11px;color:var(--muted);min-width:120px;flex-shrink:0;line-height:1.4}
 .rtrack{flex:1;height:3px;background:var(--border);border-radius:3px;overflow:hidden}
 .rfill{height:100%;background:var(--accent);border-radius:3px;transition:width .4s ease}
-.rscore{font-size:13px;font-weight:600;color:var(--text);min-width:42px;text-align:right;font-variant-numeric:tabular-nums}
-.cprev{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 14px;font-size:13px;color:var(--muted);margin-bottom:16px;display:none;line-height:1.5}
+.rscore{font-size:13px;font-weight:600;color:var(--text);min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
+.cprev{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 13px;font-size:13px;color:var(--muted);margin-bottom:14px;display:none;line-height:1.5}
 
-/* Error */
-.errbox{background:#fdf0ef;border:1px solid #f5c6c5;border-radius:var(--rsm);padding:11px 14px;font-size:13px;color:var(--red);margin-bottom:16px;display:none;align-items:center;gap:8px}
-.errbox.show{display:flex}
-
-/* Buttons */
+/* ── BUTTONS ── */
 .btnrow{display:flex;gap:10px;margin-top:4px}
-.btn{flex:1;padding:12px 20px;border-radius:var(--rsm);border:none;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;white-space:nowrap;min-height:46px}
+.btn{flex:1;padding:12px 18px;border-radius:var(--rsm);border:none;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;white-space:nowrap;min-height:44px}
 .btn-dark{background:var(--text);color:#fff}
 .btn-dark:hover{background:#2d2c2a;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.15)}
 .btn-dark:active{transform:translateY(0);box-shadow:none}
@@ -161,39 +174,33 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-green{background:#16a34a;color:#fff}
 .btn-green:hover{background:#15803d;transform:translateY(-1px);box-shadow:0 4px 14px rgba(22,163,74,.25)}
 .btn-green:active{transform:translateY(0)}
-
-/* Spinner */
+.errbox{background:var(--red-bg);border:1px solid #f5c6c5;border-radius:var(--rsm);padding:10px 13px;font-size:13px;color:var(--red);margin-bottom:14px;display:none;align-items:center;gap:8px}
+.errbox.show{display:flex}
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Success screen */
-.suc-ring{width:66px;height:66px;background:var(--green-bg);border-radius:50%;border:2px solid rgba(22,163,74,.25);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)}
+/* ── SUCCESS SCREEN ── */
+.suc-ring{width:62px;height:62px;background:var(--green-bg);border-radius:50%;border:2px solid rgba(22,163,74,.25);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)}
 @keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-.suc-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--green);letter-spacing:-.3px;margin-bottom:8px}
-.suc-body{font-size:14px;color:var(--muted);margin-bottom:22px}
-.suc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;text-align:left;margin-bottom:26px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.suc-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border)}
-.suc-row:last-child{border-bottom:none}
-.suc-row .k{color:var(--muted)}
-.suc-row .v{font-weight:600;color:var(--text)}
+.suc-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--green);letter-spacing:-.3px;margin-bottom:6px;text-align:center}
+.suc-body{font-size:14px;color:var(--muted);margin-bottom:20px;text-align:center}
 
 .hidden{display:none!important}
-
 @media(max-width:600px){
-  .main{padding:24px 16px 48px}
-  .topbar,.stepper-bar{padding:0 16px}
+  .main{padding:20px 14px 48px}
+  .topbar,.stepper-bar{padding:0 14px}
   .step-lbl{display:none}
   .jgrid{grid-template-columns:repeat(2,1fr)}
   .rlabel{min-width:90px}
+  .code-digit{width:48px;height:60px;font-size:24px}
 }
-@media(max-width:400px){
-  .jgrid{grid-template-columns:1fr}
-}
+@media(max-width:380px){.jgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="shell">
 
+<!-- Top bar -->
 <div class="topbar">
   <div class="brand">
     <div class="brand-icon">🏅</div>
@@ -202,7 +209,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="topbar-sub">MECE · Spring 2026</div>
 </div>
 
-<div class="stepper-bar" id="stepperBar">
+<!-- Stepper (hidden on access + success screens) -->
+<div class="stepper-bar hidden" id="stepperBar">
   <div class="stepper">
     <div class="step active" id="st1"><div class="step-inner"><div class="step-num" id="sn1">1</div><div class="step-lbl">Judge</div></div></div>
     <div class="step" id="st2"><div class="step-inner"><div class="step-num" id="sn2">2</div><div class="step-lbl">Student</div></div></div>
@@ -213,100 +221,102 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 <div class="main">
 
-  <!-- ── Screen 1: Judge Selection ── -->
-  <div class="screen active" id="sc1">
-    <div class="slabel">Step 1 of 4</div>
-    <div class="stitle">Select your name</div>
-    <div class="ssub">Tap your name below to begin evaluating student posters.</div>
-
-    <div class="jgrid" id="jgrid">
-      <!-- Populated by JS -->
-    </div>
-
-    <div class="warn" id="warnJ">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
-      Please select your name above.
-    </div>
-    <div class="btnrow">
-      <button class="btn btn-dark" onclick="nav(2)">Continue →</button>
+  <!-- ══ SCREEN 0: Access Code ══ -->
+  <div class="screen active" id="sc0">
+    <div class="code-wrap">
+      <div class="lock-icon">🔒</div>
+      <div class="slabel" style="text-align:center">Judges Only</div>
+      <div class="stitle" style="text-align:center;margin-bottom:6px">Enter Access Code</div>
+      <div class="ssub" style="text-align:center;margin-bottom:24px">Enter the 4-digit code provided by your coordinator.</div>
+      <div class="code-inputs">
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d0" oninput="onDigit(0)" onkeydown="onKey(event,0)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d1" oninput="onDigit(1)" onkeydown="onKey(event,1)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d2" oninput="onDigit(2)" onkeydown="onKey(event,2)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d3" oninput="onDigit(3)" onkeydown="onKey(event,3)"/>
+      </div>
+      <div class="code-error" id="codeError"></div>
+      <div class="code-hint">Contact your coordinator if you don't have the code.</div>
     </div>
   </div>
 
-  <!-- ── Screen 2: Student Selection ── -->
+  <!-- ══ SCREEN 1: Judge Selection ══ -->
+  <div class="screen" id="sc1">
+    <div class="slabel">Step 1 of 4</div>
+    <div class="stitle">Select your name</div>
+    <div class="ssub">Tap your name to begin evaluating student posters.</div>
+    <div class="jgrid" id="jgrid"></div>
+    <div class="warn" id="warnJ">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      Please select your name above.
+    </div>
+    <div class="btnrow"><button class="btn btn-dark" onclick="nav(2)">Continue →</button></div>
+  </div>
+
+  <!-- ══ SCREEN 2: Student Selection ══ -->
   <div class="screen" id="sc2">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js2"></div></div>
     <div class="slabel">Step 2 of 4</div>
     <div class="stitle">Select a student</div>
-    <div class="ssub">Search or scroll to find the poster presenter you are evaluating.</div>
+    <div class="ssub">Only your assigned students are shown. Tap one to score them.</div>
+
+    <div class="status-legend">
+      <div class="legend-item"><span class="pill pill-done">✓ Scored</span> Already submitted</div>
+      <div class="legend-item"><span class="pill pill-pending">⏳ Pending</span> Awaiting your score</div>
+    </div>
 
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInp" placeholder="Search by name…" oninput="filterStudents()" autocomplete="off"/>
-    </div>
-    <div class="ftabs">
-      <button class="ftab on" id="ftAll"  onclick="setFilter('all')">All students</button>
-      <button class="ftab"    id="ftUG"   onclick="setFilter('UG')">Undergraduate</button>
-      <button class="ftab"    id="ftGrad" onclick="setFilter('Grad')">Graduate</button>
+      <input type="text" id="searchInp" placeholder="Search by name or poster ID…" oninput="renderStudentList()" autocomplete="off"/>
     </div>
     <div class="slist" id="slist"></div>
 
-    <div class="btnrow" style="margin-top:20px">
+    <div class="btnrow" style="margin-top:18px">
       <button class="btn btn-outline" onclick="nav(1)">← Back</button>
       <button class="btn btn-dark" onclick="nav(3)">Score this student →</button>
     </div>
   </div>
 
-  <!-- ── Screen 3: Scoring ── -->
+  <!-- ══ SCREEN 3: Scoring ══ -->
   <div class="screen" id="sc3">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js3"></div></div>
     <div class="slabel">Step 3 of 4</div>
     <div class="stitle">Score this poster</div>
-
     <div class="sbar">
       <div><div class="sbar-name" id="sbn"></div><div class="sbar-meta" id="sbm"></div></div>
       <div id="sbb"></div>
     </div>
-
     <div class="clist" id="clist"></div>
-
     <div class="tbar">
-      <div><div class="tbar-lbl">Total score</div><div class="tbar-sub">out of 115 points</div></div>
-      <div class="tbar-score" id="totalDisp">0 <small>/ 115</small></div>
+      <div><div class="tbar-lbl">Total score</div><div class="tbar-sub">out of 110 points</div></div>
+      <div class="tbar-score" id="totalDisp">0 <small>/ 110</small></div>
     </div>
-
     <div class="flabel">Comments (optional)</div>
-    <textarea class="cfield" id="commentsField" placeholder="Additional feedback for this poster…"></textarea>
-
+    <textarea class="cfield" id="commentsField" placeholder="Additional feedback…"></textarea>
     <div class="btnrow">
       <button class="btn btn-outline" onclick="nav(2)">← Back</button>
       <button class="btn btn-dark" onclick="nav(4)">Review & submit →</button>
     </div>
   </div>
 
-  <!-- ── Screen 4: Review & Submit ── -->
+  <!-- ══ SCREEN 4: Review & Submit ══ -->
   <div class="screen" id="sc4">
     <div class="jstrip"><div class="jstrip-lbl">Scoring as</div><div class="pill pill-gold" id="js4"></div></div>
     <div class="slabel">Step 4 of 4</div>
     <div class="stitle">Review & submit</div>
-
     <div class="rev-header">
       <div class="rev-init" id="revInit"></div>
       <div><div class="rev-name" id="revName"></div><div class="rev-meta" id="revMeta"></div></div>
     </div>
-
     <div class="rlist" id="rlist"></div>
-
-    <div class="tbar" style="margin-bottom:16px">
-      <div><div class="tbar-lbl">Final total</div><div class="tbar-sub">out of 115 points</div></div>
-      <div class="tbar-score" id="revTotal">0 <small>/ 115</small></div>
+    <div class="tbar" style="margin-bottom:14px">
+      <div><div class="tbar-lbl">Final total</div><div class="tbar-sub">out of 110 points</div></div>
+      <div class="tbar-score" id="revTotal">0 <small>/ 110</small></div>
     </div>
-
     <div class="cprev" id="cprev"></div>
     <div class="errbox" id="errbox">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
       <span id="errMsg"></span>
     </div>
-
     <div class="btnrow">
       <button class="btn btn-outline" onclick="nav(3)">← Edit scores</button>
       <button class="btn btn-green" id="subBtn" onclick="submitScores()">
@@ -316,67 +326,58 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
   </div>
 
-  <!-- ── Screen 5: Success + Report ── -->
+  <!-- ══ SCREEN 5: Success + Report ══ -->
   <div class="screen" id="sc5">
-
-    <div style="display:flex;align-items:center;gap:14px;background:var(--green-bg);border:1px solid rgba(22,163,74,.22);border-radius:var(--r);padding:16px 18px;margin-bottom:24px;">
-      <div style="width:40px;height:40px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)">✓</div>
+    <div style="display:flex;align-items:center;gap:14px;background:var(--green-bg);border:1px solid rgba(22,163,74,.22);border-radius:var(--r);padding:14px 16px;margin-bottom:20px;">
+      <div style="width:38px;height:38px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;flex-shrink:0;animation:popIn .36s cubic-bezier(.34,1.56,.64,1)">✓</div>
       <div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--green);letter-spacing:-.2px">Scores submitted successfully!</div>
-        <div style="font-size:13px;color:#4a7a5a;margin-top:2px">Your evaluation has been recorded in the master score sheet.</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--green)">Scores submitted successfully!</div>
+        <div style="font-size:13px;color:#4a7a5a;margin-top:2px">Recorded in the master score sheet.</div>
       </div>
     </div>
 
-    <div id="downloadNotice" style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:24px;display:flex;align-items:flex-start;gap:10px;">
-      <div style="font-size:18px;flex-shrink:0;margin-top:1px" id="noticeIcon">⏳</div>
+    <div id="downloadNotice" style="background:var(--gold-bg);border:1px solid rgba(138,106,20,.2);border-radius:var(--r);padding:12px 14px;margin-bottom:20px;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:17px;flex-shrink:0" id="noticeIcon">⏳</div>
       <div style="font-size:13px;color:var(--gold);line-height:1.5;" id="noticeText">
-        <strong>Preparing your report image…</strong><br>
-        Your score report is being generated and will download automatically.
+        <strong>Preparing your report image…</strong><br>Downloading automatically.
       </div>
     </div>
 
-    <!-- Printable report card -->
-    <div id="reportCard" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:20px;">
-
-      <div style="background:#1a1917;padding:18px 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-          <div>
-            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px">MECE Poster Competition</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;text-transform:uppercase;letter-spacing:.6px">Judge Score Report · Spring 2026</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1" id="rpt-total"></div>
-            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">out of 115 pts</div>
-          </div>
+    <!-- Report card -->
+    <div id="reportCard" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:18px;">
+      <div style="background:#1a1917;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff">MECE Poster Competition</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;text-transform:uppercase;letter-spacing:.6px">Judge Score Report · Spring 2026</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;line-height:1" id="rpt-total"></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">out of 110 pts</div>
         </div>
       </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
-        <div style="padding:14px 18px;border-right:1px solid var(--border);">
-          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Student</div>
-          <div style="font-size:14px;font-weight:600;color:var(--text)" id="rpt-student"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">
+        <div style="padding:12px 16px;border-right:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:3px">Student</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)" id="rpt-student"></div>
           <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-studentmeta"></div>
         </div>
-        <div style="padding:14px 18px;">
-          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:4px">Evaluated by</div>
-          <div style="font-size:14px;font-weight:600;color:var(--text)" id="rpt-judge"></div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="rpt-affil"></div>
+        <div style="padding:12px 16px;">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:3px">Evaluated by</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)" id="rpt-judge"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:1px" id="rpt-affil"></div>
           <div style="font-size:11px;color:var(--muted);margin-top:1px" id="rpt-time"></div>
         </div>
       </div>
-
-      <div style="padding:16px 18px 4px;">
-        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:12px">Score Breakdown</div>
+      <div style="padding:14px 16px 4px;">
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:10px">Score Breakdown</div>
         <div id="rpt-breakdown"></div>
       </div>
-
-      <div id="rpt-comments-wrap" style="padding:0 18px 16px;display:none;">
-        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:6px">Comments</div>
-        <div id="rpt-comments" style="font-size:13px;color:var(--muted);background:var(--surface2);border-radius:var(--rsm);padding:10px 13px;border:1px solid var(--border);line-height:1.55;"></div>
+      <div id="rpt-comments-wrap" style="padding:0 16px 14px;display:none;">
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:5px">Comments</div>
+        <div id="rpt-comments" style="font-size:13px;color:var(--muted);background:var(--surface2);border-radius:var(--rsm);padding:9px 12px;border:1px solid var(--border);line-height:1.5;"></div>
       </div>
-
-      <div style="padding:14px 18px;border-top:1px solid var(--border);background:var(--surface2);">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+      <div style="padding:12px 16px;border-top:1px solid var(--border);background:var(--surface2);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
           <div style="font-size:12px;font-weight:500;color:var(--muted)">Overall performance</div>
           <div style="font-size:13px;font-weight:700;color:var(--text)" id="rpt-pct"></div>
         </div>
@@ -386,9 +387,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">
-      <button class="btn btn-dark" id="saveImgBtn" onclick="saveImage()" style="gap:8px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button class="btn btn-dark" onclick="saveImage()" style="gap:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Save report as image
       </button>
       <div style="display:flex;gap:10px;">
@@ -396,117 +397,183 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <button class="btn btn-outline" onclick="changeJudge()" style="flex:1;">Change judge</button>
       </div>
     </div>
-
-  </div><!-- /sc5 -->
+  </div>
 
 </div><!-- /main -->
 </div><!-- /shell -->
 
 <script>
-// ─── ADMIN CONFIG ─────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZSHjciIBs6DN82mryhnZOe8pNKGhEaZld7mIyrHLrmq2VnlIjK56CqbWKAVlXuT6zpQ/exec";
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbxmxafSNU0lLKW5vtVGYqJQWO4iwOV6Dn0bjuSsvAamN92lkLoQi4viiFKqroAWQXBw/exec";
+const ACCESS_CODE = "0507";
+const TOTAL_MAX   = 110;
 
-// ─── JUDGES (12) — name + affiliation + sheet row offset (0-based) ────────────
+// ─── JUDGES ───────────────────────────────────────────────────────────────────
 const JUDGES = [
-  { name:"Marotta, Ed",     affil:"ChampionX, SLB" },
-  { name:"Cescon, Marzia",  affil:"UH, MAE" },
-  { name:"Franchek, Matt",  affil:"UH, MAE" },
-  { name:"Singh, Raksha",   affil:"UH, College of Business" },
-  { name:"Chen, Zheng",     affil:"UH, MAE" },
-  { name:"Wang, Ning",      affil:"Baylor Genetics" },
-  { name:"Malki, Heidar",   affil:"UH, Engr. Tech." },
-  { name:"Gaur, Sagar",     affil:"ChampionX, SLB" },
-  { name:"Rekik, Malek",    affil:"ChampionX, SLB" },
-  { name:"McGonigle, Alex", affil:"Midstream Integrity Services" },
-  { name:"Borgi, Rafik",    affil:"ChampionX, SLB" },
-  { name:"Chen, Muhao",     affil:"UH, MAE" },
+  {name:"Gaur, Sagar",    affil:"ChampionX, SLB",              level:"Graduate"},
+  {name:"Rekik, Malek",   affil:"ChampionX, SLB",              level:"Graduate"},
+  {name:"McGonigle, Alex",affil:"Midstream Integrity Services", level:"Graduate"},
+  {name:"Borgi, Rafik",   affil:"ChampionX, SLB",              level:"Graduate"},
+  {name:"Chen, Muhao",    affil:"UH, MAE",                     level:"Graduate"},
+  {name:"Marotta, Ed",    affil:"ChampionX, SLB",              level:"Undergraduate"},
+  {name:"Cescon, Marzia", affil:"UH, MAE",                     level:"Undergraduate"},
+  {name:"Franchek, Matt", affil:"UH, MAE",                     level:"Undergraduate"},
+  {name:"Singh, Raksha",  affil:"UH, College of Business",     level:"Undergraduate"},
+  {name:"Chen, Zheng",    affil:"UH, MAE",                     level:"Undergraduate"},
+  {name:"Wang, Ning",     affil:"Baylor Genetics",             level:"Undergraduate"},
+  {name:"Malki, Heidar",  affil:"UH, Engr. Tech.",             level:"Undergraduate"},
 ];
 
-// ─── STUDENTS (48) — sheetRow = first row of their 12-row block in Scores sheet
-// Data rows start at row 4; each student occupies 12 consecutive rows (one per judge)
-const STUDENTS = [
-  {name:"Abrego, Adalid",              id:"101335", level:"UG",   sheetRow:4},
-  {name:"Alouani, Mohamed Amine",      id:"111804", level:"Grad", sheetRow:16},
-  {name:"Baker, Kalen Thomas",         id:"93599",  level:"Grad", sheetRow:28},
-  {name:"Basilio, Andre S",            id:"69769",  level:"UG",   sheetRow:40},
-  {name:"Briscoe, Melvin",             id:"36328",  level:"UG",   sheetRow:52},
-  {name:"Broadbent, Charlie James",    id:"102120", level:"Grad", sheetRow:64},
-  {name:"Cano, Antonio",               id:"75459",  level:"UG",   sheetRow:76},
-  {name:"Chen, Cheng",                 id:"91046",  level:"Grad", sheetRow:88},
-  {name:"De La Cruz, Ricky Daniel",    id:"27315",  level:"UG",   sheetRow:100},
-  {name:"Do, Ricky Tran",              id:"63958",  level:"UG",   sheetRow:112},
-  {name:"Fair, Aiden",                 id:"69825",  level:"UG",   sheetRow:124},
-  {name:"Grandy, Dylan",               id:"90680",  level:"UG",   sheetRow:136},
-  {name:"Hajebrahimi, Marzieh",        id:"43352",  level:"Grad", sheetRow:148},
-  {name:"Hannan, Tico",                id:"12776",  level:"Grad", sheetRow:160},
-  {name:"Hill, Chelsea N",             id:"31871",  level:"UG",   sheetRow:172},
-  {name:"Hua, Allison",                id:"16454",  level:"UG",   sheetRow:184},
-  {name:"Ihesiulo, Onyinyechi C",      id:"32800",  level:"Grad", sheetRow:196},
-  {name:"Jaisimha, Stuthi",            id:"106867", level:"Grad", sheetRow:208},
-  {name:"Joshi, Bhupendra",            id:"63129",  level:"Grad", sheetRow:220},
-  {name:"Jurkin, Loro",                id:"43607",  level:"UG",   sheetRow:232},
-  {name:"Kamboj, Ansh",                id:"72299",  level:"UG",   sheetRow:244},
-  {name:"Lara, Estevan J",             id:"90023",  level:"UG",   sheetRow:256},
-  {name:"Liu, Wenhua",                 id:"92397",  level:"Grad", sheetRow:268},
-  {name:"Lopez, Daisy D",              id:"34144",  level:"UG",   sheetRow:280},
-  {name:"Maraseni, Saurav",            id:"81906",  level:"Grad", sheetRow:292},
-  {name:"Moayedi-Azarpour, Kauveh",    id:"73057",  level:"UG",   sheetRow:304},
-  {name:"Monasterio, Jairo",           id:"62702",  level:"UG",   sheetRow:316},
-  {name:"Munoz Luna, Sebastian",       id:"41338",  level:"UG",   sheetRow:328},
-  {name:"Nguyen, Bryan L",             id:"55380",  level:"UG",   sheetRow:340},
-  {name:"Pardo, Sebastian Alejandro",  id:"82359",  level:"UG",   sheetRow:352},
-  {name:"Perez, Javier E",             id:"34338",  level:"UG",   sheetRow:364},
-  {name:"Peter, Alen Jose",            id:"49319",  level:"UG",   sheetRow:376},
-  {name:"Pham, Ryuto Viet",            id:"4029",   level:"UG",   sheetRow:388},
-  {name:"Quake, Cole D",               id:"46385",  level:"UG",   sheetRow:400},
-  {name:"Risi Mortola, Piero Lucca",   id:"63032",  level:"Grad", sheetRow:412},
-  {name:"Roach, McKay",                id:"113588", level:"Grad", sheetRow:424},
-  {name:"Rodriguez, Christian C",      id:"31843",  level:"UG",   sheetRow:436},
-  {name:"Shah, Rohan",                 id:"13043",  level:"UG",   sheetRow:448},
-  {name:"Sharp, Matteo Sebastien",     id:"39062",  level:"UG",   sheetRow:460},
-  {name:"Silwal, Saurav",              id:"54784",  level:"Grad", sheetRow:472},
-  {name:"Talaga, Isaac",               id:"116676", level:"Grad", sheetRow:484},
-  {name:"Thakkar, Hetvi Ashishbhai",   id:"118047", level:"Grad", sheetRow:496},
-  {name:"Thapa, Anamol",               id:"80850",  level:"UG",   sheetRow:508},
-  {name:"Tiwari, Amrit",               id:"111813", level:"Grad", sheetRow:520},
-  {name:"Trinh, William Minh",         id:"35053",  level:"UG",   sheetRow:532},
-  {name:"Udesa, Rufo Gololcha",        id:"111801", level:"Grad", sheetRow:544},
-  {name:"Ying, Yuhang",                id:"73620",  level:"Grad", sheetRow:556},
-  {name:"Zino, Gaby",                  id:"38028",  level:"Grad", sheetRow:568},
-];
-
-// ─── CRITERIA (8, total 115 pts) ──────────────────────────────────────────────
+// ─── CRITERIA ─────────────────────────────────────────────────────────────────
 const CRITERIA = [
-  {key:"c1", name:"Problem Statement",            max:10},
-  {key:"c2", name:"Task 1",                       max:15},
-  {key:"c3", name:"Task 2",                       max:15},
-  {key:"c4", name:"Task 3",                       max:20},
-  {key:"c5", name:"Creative Innovation (Task 4)", max:15},
-  {key:"c6", name:"Master of Knowledge",          max:15},
-  {key:"c7", name:"Poster Clarity",               max:10},
-  {key:"c8", name:"Q&A",                          max:15},
+  {key:"c1", name:"Problem Statement & Literature Review", max:5},
+  {key:"c2", name:"Task 1 (Easy)",                        max:15},
+  {key:"c3", name:"Task 2 (Challenging)",                 max:15},
+  {key:"c4", name:"Task 3 (More Challenging)",            max:20},
+  {key:"c5", name:"Creation / Innovation",                max:10},
+  {key:"c6", name:"Student's Mastery of Knowledge",       max:10},
+  {key:"c7", name:"Poster Presentation Clarity",          max:10},
+  {key:"c8", name:"Questions & Answers",                  max:15},
+  {key:"c9", name:"Bonus – App Development",              max:10},
 ];
-const TOTAL_MAX = 115;
 
-// ─── State ────────────────────────────────────────────────────────────────────
-let judgeIdx  = -1;   // index into JUDGES array
-let student   = null;
-let filt      = "all";
-const SC      = {c1:0,c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0};
+// ─── STUDENT ROSTER ───────────────────────────────────────────────────────────
+// sheetRow = the exact row in the Google Sheet for THIS judge scoring THIS student
+// Graduate sheet data starts row 4, each student = 4 rows (3 judges + 1 summary)
+// Undergraduate sheet data starts row 4, each student = 4 rows (3 judges + 1 summary)
 
-// ─── Build judge grid ─────────────────────────────────────────────────────────
-(function buildJudgeGrid() {
+// Judge order within each student block (0-based offset):
+//   Graduate:     0=Gaur, 1=Rekik, 2=McGonigle, 3=Borgi, 4=ChenMuhao
+//   Undergrad:    0=Marotta, 1=Cescon, 2=Franchek, 3=Singh, 4=ChenZheng, 5=Wang, 6=Malki
+
+// For each student the 3 assigned judges have offsets 0,1,2 within that student's block.
+// Block start rows (Graduate): G01=4, G02=8, G03=12 ... each block = 4 rows
+// Block start rows (UG):       U01=4, U02=8 ... each block = 4 rows
+
+function gRow(studentIdx, judgeOffset) { return 4 + studentIdx * 4 + judgeOffset; }
+
+// Graduate assignments — {posterID: [{judgeName, sheetRow}, ...]}
+const GRAD_DATA = [
+  // G01–G12: Gaur(off 0), Borgi(off 1), ChenMuhao(off 2)  [Gaur is j0, Borgi j1, ChenMuhao j2 in block]
+  {pid:"G01",name:"Alouani, Mohamed Amine",    id:"111804", judges:[{j:"Gaur, Sagar",row:gRow(0,0)},{j:"Borgi, Rafik",row:gRow(0,1)},{j:"Chen, Muhao",row:gRow(0,2)}]},
+  {pid:"G02",name:"Broadbent, Charlie James",  id:"102120", judges:[{j:"Gaur, Sagar",row:gRow(1,0)},{j:"Borgi, Rafik",row:gRow(1,1)},{j:"Chen, Muhao",row:gRow(1,2)}]},
+  {pid:"G03",name:"Chen, Cheng",               id:"91046",  judges:[{j:"Gaur, Sagar",row:gRow(2,0)},{j:"Borgi, Rafik",row:gRow(2,1)},{j:"Chen, Muhao",row:gRow(2,2)}]},
+  {pid:"G04",name:"Hajebrahimi, Marzieh",      id:"43352",  judges:[{j:"Gaur, Sagar",row:gRow(3,0)},{j:"Borgi, Rafik",row:gRow(3,1)},{j:"Chen, Muhao",row:gRow(3,2)}]},
+  // G05–G08: Gaur, Rekik, ChenMuhao
+  {pid:"G05",name:"Hannan, Tico",              id:"12776",  judges:[{j:"Gaur, Sagar",row:gRow(4,0)},{j:"Rekik, Malek",row:gRow(4,1)},{j:"Chen, Muhao",row:gRow(4,2)}]},
+  {pid:"G06",name:"Ihesiulo, Onyinyechi C",    id:"32800",  judges:[{j:"Gaur, Sagar",row:gRow(5,0)},{j:"Rekik, Malek",row:gRow(5,1)},{j:"Chen, Muhao",row:gRow(5,2)}]},
+  {pid:"G07",name:"Jaisimha, Stuthi",          id:"106867", judges:[{j:"Gaur, Sagar",row:gRow(6,0)},{j:"Rekik, Malek",row:gRow(6,1)},{j:"Chen, Muhao",row:gRow(6,2)}]},
+  {pid:"G08",name:"Joshi, Bhupendra",          id:"63129",  judges:[{j:"Gaur, Sagar",row:gRow(7,0)},{j:"Rekik, Malek",row:gRow(7,1)},{j:"Chen, Muhao",row:gRow(7,2)}]},
+  // G09–G12: Gaur, Rekik, McGonigle
+  {pid:"G09",name:"Liu, Wenhua",               id:"92397",  judges:[{j:"Gaur, Sagar",row:gRow(8,0)},{j:"Rekik, Malek",row:gRow(8,1)},{j:"McGonigle, Alex",row:gRow(8,2)}]},
+  {pid:"G10",name:"Maraseni, Saurav",          id:"81906",  judges:[{j:"Gaur, Sagar",row:gRow(9,0)},{j:"Rekik, Malek",row:gRow(9,1)},{j:"McGonigle, Alex",row:gRow(9,2)}]},
+  {pid:"G11",name:"Risi Mortola, Piero Lucca", id:"63032",  judges:[{j:"Gaur, Sagar",row:gRow(10,0)},{j:"Rekik, Malek",row:gRow(10,1)},{j:"McGonigle, Alex",row:gRow(10,2)}]},
+  {pid:"G12",name:"Roach, McKay",              id:"113588", judges:[{j:"Gaur, Sagar",row:gRow(11,0)},{j:"Rekik, Malek",row:gRow(11,1)},{j:"McGonigle, Alex",row:gRow(11,2)}]},
+  // G13–G16: Borgi, Rekik, McGonigle
+  {pid:"G13",name:"Silwal, Saurav",            id:"54784",  judges:[{j:"Rekik, Malek",row:gRow(12,0)},{j:"Borgi, Rafik",row:gRow(12,1)},{j:"McGonigle, Alex",row:gRow(12,2)}]},
+  {pid:"G14",name:"Talaga, Isaac",             id:"116676", judges:[{j:"Rekik, Malek",row:gRow(13,0)},{j:"Borgi, Rafik",row:gRow(13,1)},{j:"McGonigle, Alex",row:gRow(13,2)}]},
+  {pid:"G15",name:"Thakkar, Hetvi Ashishbhai", id:"118047", judges:[{j:"Rekik, Malek",row:gRow(14,0)},{j:"Borgi, Rafik",row:gRow(14,1)},{j:"McGonigle, Alex",row:gRow(14,2)}]},
+  {pid:"G16",name:"Tiwari, Amrit",             id:"111813", judges:[{j:"Rekik, Malek",row:gRow(15,0)},{j:"Borgi, Rafik",row:gRow(15,1)},{j:"McGonigle, Alex",row:gRow(15,2)}]},
+  // G17–G20: Borgi, ChenMuhao, McGonigle
+  {pid:"G17",name:"Udesa, Rufo Gololcha",      id:"111801", judges:[{j:"Borgi, Rafik",row:gRow(16,0)},{j:"Chen, Muhao",row:gRow(16,1)},{j:"McGonigle, Alex",row:gRow(16,2)}]},
+  {pid:"G18",name:"Ying, Yuhang",              id:"73620",  judges:[{j:"Borgi, Rafik",row:gRow(17,0)},{j:"Chen, Muhao",row:gRow(17,1)},{j:"McGonigle, Alex",row:gRow(17,2)}]},
+  {pid:"G19",name:"Zino, Gaby",                id:"38028",  judges:[{j:"Borgi, Rafik",row:gRow(18,0)},{j:"Chen, Muhao",row:gRow(18,1)},{j:"McGonigle, Alex",row:gRow(18,2)}]},
+  {pid:"G20",name:"Zuspan, Jennifer",          id:"108182", judges:[{j:"Borgi, Rafik",row:gRow(19,0)},{j:"Chen, Muhao",row:gRow(19,1)},{j:"McGonigle, Alex",row:gRow(19,2)}]},
+];
+
+function uRow(studentIdx, judgeOffset) { return 4 + studentIdx * 4 + judgeOffset; }
+
+const UG_DATA = [
+  // U01–U04: Marotta, Wang, Malki
+  {pid:"U01",name:"Abrego, Adalid",            id:"101335", judges:[{j:"Marotta, Ed",row:uRow(0,0)},{j:"Wang, Ning",row:uRow(0,1)},{j:"Malki, Heidar",row:uRow(0,2)}]},
+  {pid:"U02",name:"Basilio, Andre S",          id:"69769",  judges:[{j:"Marotta, Ed",row:uRow(1,0)},{j:"Wang, Ning",row:uRow(1,1)},{j:"Malki, Heidar",row:uRow(1,2)}]},
+  {pid:"U03",name:"Briscoe, Melvin",           id:"36328",  judges:[{j:"Marotta, Ed",row:uRow(2,0)},{j:"Wang, Ning",row:uRow(2,1)},{j:"Malki, Heidar",row:uRow(2,2)}]},
+  {pid:"U04",name:"Cano, Antonio",             id:"75459",  judges:[{j:"Marotta, Ed",row:uRow(3,0)},{j:"Wang, Ning",row:uRow(3,1)},{j:"Malki, Heidar",row:uRow(3,2)}]},
+  // U05–U08: Marotta, Cescon, Malki
+  {pid:"U05",name:"De La Cruz, Ricky Daniel",  id:"27315",  judges:[{j:"Marotta, Ed",row:uRow(4,0)},{j:"Cescon, Marzia",row:uRow(4,1)},{j:"Malki, Heidar",row:uRow(4,2)}]},
+  {pid:"U06",name:"Do, Ricky Tran",            id:"63958",  judges:[{j:"Marotta, Ed",row:uRow(5,0)},{j:"Cescon, Marzia",row:uRow(5,1)},{j:"Malki, Heidar",row:uRow(5,2)}]},
+  {pid:"U07",name:"Fair, Aiden",               id:"69825",  judges:[{j:"Marotta, Ed",row:uRow(6,0)},{j:"Cescon, Marzia",row:uRow(6,1)},{j:"Malki, Heidar",row:uRow(6,2)}]},
+  {pid:"U08",name:"Grandy, Dylan",             id:"90680",  judges:[{j:"Marotta, Ed",row:uRow(7,0)},{j:"Cescon, Marzia",row:uRow(7,1)},{j:"Malki, Heidar",row:uRow(7,2)}]},
+  // U09–U12: Marotta, Cescon, Franchek
+  {pid:"U09",name:"Hill, Chelsea N",           id:"31871",  judges:[{j:"Marotta, Ed",row:uRow(8,0)},{j:"Cescon, Marzia",row:uRow(8,1)},{j:"Franchek, Matt",row:uRow(8,2)}]},
+  {pid:"U10",name:"Hua, Allison",              id:"16454",  judges:[{j:"Marotta, Ed",row:uRow(9,0)},{j:"Cescon, Marzia",row:uRow(9,1)},{j:"Franchek, Matt",row:uRow(9,2)}]},
+  {pid:"U11",name:"Jurkin, Loro",              id:"43607",  judges:[{j:"Marotta, Ed",row:uRow(10,0)},{j:"Cescon, Marzia",row:uRow(10,1)},{j:"Franchek, Matt",row:uRow(10,2)}]},
+  {pid:"U12",name:"Kamboj, Ansh",              id:"72299",  judges:[{j:"Marotta, Ed",row:uRow(11,0)},{j:"Cescon, Marzia",row:uRow(11,1)},{j:"Franchek, Matt",row:uRow(11,2)}]},
+  // U13–U16: Singh, Cescon, Franchek
+  {pid:"U13",name:"Lara, Estevan J",           id:"90023",  judges:[{j:"Singh, Raksha",row:uRow(12,0)},{j:"Cescon, Marzia",row:uRow(12,1)},{j:"Franchek, Matt",row:uRow(12,2)}]},
+  {pid:"U14",name:"Lopez, Daisy D",            id:"34144",  judges:[{j:"Singh, Raksha",row:uRow(13,0)},{j:"Cescon, Marzia",row:uRow(13,1)},{j:"Franchek, Matt",row:uRow(13,2)}]},
+  {pid:"U15",name:"Moayedi-Azarpour, Kauveh",  id:"73057",  judges:[{j:"Singh, Raksha",row:uRow(14,0)},{j:"Cescon, Marzia",row:uRow(14,1)},{j:"Franchek, Matt",row:uRow(14,2)}]},
+  {pid:"U16",name:"Monasterio, Jairo",         id:"62702",  judges:[{j:"Singh, Raksha",row:uRow(15,0)},{j:"Cescon, Marzia",row:uRow(15,1)},{j:"Franchek, Matt",row:uRow(15,2)}]},
+  // U17–U20: Singh, ChenZheng, Franchek
+  {pid:"U17",name:"Munoz Luna, Sebastian",     id:"41338",  judges:[{j:"Singh, Raksha",row:uRow(16,0)},{j:"Chen, Zheng",row:uRow(16,1)},{j:"Franchek, Matt",row:uRow(16,2)}]},
+  {pid:"U18",name:"Nguyen, Bryan L",           id:"55380",  judges:[{j:"Singh, Raksha",row:uRow(17,0)},{j:"Chen, Zheng",row:uRow(17,1)},{j:"Franchek, Matt",row:uRow(17,2)}]},
+  {pid:"U19",name:"Pardo, Sebastian Alejandro",id:"82359",  judges:[{j:"Singh, Raksha",row:uRow(18,0)},{j:"Chen, Zheng",row:uRow(18,1)},{j:"Franchek, Matt",row:uRow(18,2)}]},
+  {pid:"U20",name:"Perez, Javier E",           id:"34338",  judges:[{j:"Singh, Raksha",row:uRow(19,0)},{j:"Chen, Zheng",row:uRow(19,1)},{j:"Franchek, Matt",row:uRow(19,2)}]},
+  // U21–U24: Singh, ChenZheng, Wang
+  {pid:"U21",name:"Peter, Alen Jose",          id:"49319",  judges:[{j:"Singh, Raksha",row:uRow(20,0)},{j:"Chen, Zheng",row:uRow(20,1)},{j:"Wang, Ning",row:uRow(20,2)}]},
+  {pid:"U22",name:"Pham, Ryuto Viet",          id:"4029",   judges:[{j:"Singh, Raksha",row:uRow(21,0)},{j:"Chen, Zheng",row:uRow(21,1)},{j:"Wang, Ning",row:uRow(21,2)}]},
+  {pid:"U23",name:"Quake, Cole D",             id:"46385",  judges:[{j:"Singh, Raksha",row:uRow(22,0)},{j:"Chen, Zheng",row:uRow(22,1)},{j:"Wang, Ning",row:uRow(22,2)}]},
+  {pid:"U24",name:"Rodriguez, Christian C",    id:"31843",  judges:[{j:"Singh, Raksha",row:uRow(23,0)},{j:"Chen, Zheng",row:uRow(23,1)},{j:"Wang, Ning",row:uRow(23,2)}]},
+  // U25–U28: Malki, ChenZheng, Wang
+  {pid:"U25",name:"Shah, Rohan",               id:"13043",  judges:[{j:"Malki, Heidar",row:uRow(24,0)},{j:"Chen, Zheng",row:uRow(24,1)},{j:"Wang, Ning",row:uRow(24,2)}]},
+  {pid:"U26",name:"Sharp, Matteo Sebastien",   id:"39062",  judges:[{j:"Malki, Heidar",row:uRow(25,0)},{j:"Chen, Zheng",row:uRow(25,1)},{j:"Wang, Ning",row:uRow(25,2)}]},
+  {pid:"U27",name:"Thapa, Anamol",             id:"80850",  judges:[{j:"Malki, Heidar",row:uRow(26,0)},{j:"Chen, Zheng",row:uRow(26,1)},{j:"Wang, Ning",row:uRow(26,2)}]},
+  {pid:"U28",name:"Trinh, William Minh",       id:"35053",  judges:[{j:"Malki, Heidar",row:uRow(27,0)},{j:"Chen, Zheng",row:uRow(27,1)},{j:"Wang, Ning",row:uRow(27,2)}]},
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let judgeIdx    = -1;
+let myStudents  = [];       // filtered list for selected judge
+let student     = null;     // selected student object
+let studentRow  = null;     // exact sheet row for this judge+student
+let statusMap   = {};       // {sheetRow: true/false}  true=scored
+let statusLoaded= false;
+const SC = {c1:0,c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0,c9:0};
+
+// ─── ACCESS CODE ──────────────────────────────────────────────────────────────
+function onDigit(idx) {
+  const el = document.getElementById("d"+idx);
+  const val = el.value.replace(/\D/g,"");
+  el.value = val;
+  if (val) { el.classList.add("filled"); if (idx < 3) document.getElementById("d"+(idx+1)).focus(); }
+  else { el.classList.remove("filled"); }
+  const code = [0,1,2,3].map(i => document.getElementById("d"+i).value).join("");
+  if (code.length === 4) checkCode(code);
+}
+
+function onKey(e, idx) {
+  if (e.key === "Backspace" && !document.getElementById("d"+idx).value && idx > 0) {
+    document.getElementById("d"+(idx-1)).focus();
+  }
+}
+
+function checkCode(code) {
+  if (code === ACCESS_CODE) {
+    document.getElementById("codeError").textContent = "";
+    buildJudgeGrid();
+    nav(1);
+  } else {
+    [0,1,2,3].forEach(i => {
+      const el = document.getElementById("d"+i);
+      el.classList.add("error");
+      el.value = ""; el.classList.remove("filled");
+      setTimeout(() => el.classList.remove("error"), 500);
+    });
+    document.getElementById("codeError").textContent = "Incorrect code. Please try again.";
+    document.getElementById("d0").focus();
+  }
+}
+
+// ─── JUDGE GRID ───────────────────────────────────────────────────────────────
+function buildJudgeGrid() {
   const grid = document.getElementById("jgrid");
+  grid.innerHTML = "";
   JUDGES.forEach((j, idx) => {
     const card = document.createElement("div");
     card.className = "jcard";
     card.dataset.idx = idx;
-    card.innerHTML = `
-      <div class="javatar">⚖️</div>
-      <div>
-        <div class="jname">${j.name}</div>
-        <div class="jaffil">${j.affil}</div>
-      </div>`;
+    card.innerHTML = `<div class="javatar">⚖️</div>
+      <div><div class="jname">${j.name}</div><div class="jaffil">${j.affil}</div></div>`;
     card.onclick = function() {
       document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
       this.classList.add("sel");
@@ -515,72 +582,132 @@ const SC      = {c1:0,c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0};
     };
     grid.appendChild(card);
   });
-})();
+}
 
-// ─── Navigation ───────────────────────────────────────────────────────────────
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
 function nav(n) {
   if (n === 2 && judgeIdx < 0) { document.getElementById("warnJ").classList.add("show"); return; }
   if (n === 3 && !student)     { alert("Please select a student first."); return; }
 
-  if (n >= 2) {
-    const jname = JUDGES[judgeIdx].name;
-    ["js2","js3","js4"].forEach(id => document.getElementById(id).textContent = jname);
-  }
+  if (n === 2) setupStudentScreen();
   if (n === 3) buildScoreScreen();
   if (n === 4) buildReviewScreen();
 
-  document.querySelectorAll(".screen").forEach((s,i) => s.classList.toggle("active", i+1===n));
+  document.querySelectorAll(".screen").forEach((s,i) => s.classList.toggle("active", i === n));
+  document.getElementById("stepperBar").classList.toggle("hidden", n === 0 || n === 5);
 
-  for (let i=1; i<=4; i++) {
-    const st=document.getElementById("st"+i), sn=document.getElementById("sn"+i);
-    st.classList.remove("active","done");
-    if (i<n)  { st.classList.add("done");   sn.textContent="✓"; }
-    if (i===n) { st.classList.add("active"); sn.textContent=i; }
-    if (i>n)   sn.textContent=i;
+  if (n >= 1 && n <= 4) {
+    const jname = judgeIdx >= 0 ? JUDGES[judgeIdx].name : "";
+    ["js2","js3","js4"].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=jname; });
+    for (let i=1; i<=4; i++) {
+      const st=document.getElementById("st"+i), sn=document.getElementById("sn"+i);
+      if(!st) continue;
+      st.classList.remove("active","done");
+      if (i < n)  { st.classList.add("done");   sn.textContent="✓"; }
+      if (i === n) { st.classList.add("active"); sn.textContent=i; }
+      if (i > n)   sn.textContent=i;
+    }
   }
-  document.getElementById("stepperBar").classList.toggle("hidden", n===5);
   window.scrollTo(0,0);
 }
 
-// ─── Student filter / list ────────────────────────────────────────────────────
-function setFilter(f) {
-  filt = f;
-  document.getElementById("ftAll").classList.toggle("on",  f==="all");
-  document.getElementById("ftUG").classList.toggle("on",   f==="UG");
-  document.getElementById("ftGrad").classList.toggle("on", f==="Grad");
-  filterStudents();
+// ─── STUDENT SCREEN SETUP ─────────────────────────────────────────────────────
+function setupStudentScreen() {
+  const judge   = JUDGES[judgeIdx];
+  const dataset = judge.level === "Graduate" ? GRAD_DATA : UG_DATA;
+  myStudents    = dataset.filter(s => s.judges.some(j => j.j === judge.name));
+  statusLoaded  = false;
+  statusMap     = {};
+  renderStudentList();
+  fetchStatus();   // async — updates labels when ready
 }
 
-function filterStudents() {
-  const q = (document.getElementById("searchInp").value||"").toLowerCase().trim();
-  const list = STUDENTS.filter(s =>
-    (filt==="all" || s.level===filt) && (!q || s.name.toLowerCase().includes(q))
+async function fetchStatus() {
+  const judge   = JUDGES[judgeIdx];
+  const dataset = judge.level === "Graduate" ? GRAD_DATA : UG_DATA;
+  const level   = judge.level;
+
+  // Collect all rows this judge is responsible for
+  const rows = [];
+  myStudents.forEach(s => {
+    const jEntry = s.judges.find(j => j.j === judge.name);
+    if (jEntry) rows.push(jEntry.row);
+  });
+
+  try {
+    const url = `${SCRIPT_URL}?level=${encodeURIComponent(level)}&rows=${rows.join(",")}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.ok) {
+      statusMap    = data.scores;   // {row: true/false}
+      statusLoaded = true;
+      renderStudentList();
+    }
+  } catch(e) {
+    // Status fetch failed silently — labels stay as "…"
+    statusLoaded = true;
+    renderStudentList();
+  }
+}
+
+// ─── STUDENT LIST ─────────────────────────────────────────────────────────────
+function renderStudentList() {
+  const q  = (document.getElementById("searchInp").value||"").toLowerCase().trim();
+  const judge = JUDGES[judgeIdx];
+  const list  = myStudents.filter(s =>
+    !q || s.name.toLowerCase().includes(q) || s.pid.toLowerCase().includes(q)
   );
+
   const el = document.getElementById("slist");
   if (!list.length) { el.innerHTML='<div class="sempty">No students match your search.</div>'; return; }
-  el.innerHTML = list.map(s => `
-    <div class="sitem ${student && student.id===s.id ? "sel" : ""}" onclick="pickStudent('${s.id}')">
-      <div><div class="sname">${s.name}</div><div class="sid">ID ${s.id}</div></div>
-      <span class="pill ${s.level==="UG"?"pill-ug":"pill-grad"}">${s.level==="UG"?"Undergrad":"Graduate"}</span>
-    </div>`).join("");
+
+  el.innerHTML = list.map(s => {
+    const jEntry  = s.judges.find(j => j.j === judge.name);
+    const scored  = statusLoaded ? (statusMap[jEntry.row] || false) : null;
+    const isSel   = student && student.pid === s.pid;
+
+    let statusBadge;
+    if (!statusLoaded) {
+      statusBadge = `<span class="pill pill-loading"><span class="shimmer" style="width:52px"></span></span>`;
+    } else if (scored) {
+      statusBadge = `<span class="pill pill-done">✓ Scored</span>`;
+    } else {
+      statusBadge = `<span class="pill pill-pending">⏳ Pending</span>`;
+    }
+
+    return `<div class="sitem ${isSel?"sel":""} ${scored?"done-item":""}" onclick="pickStudent('${s.pid}')">
+      <div class="sitem-left">
+        <div class="poster-id">${s.pid}</div>
+        <div>
+          <div class="sname">${s.name}</div>
+          <div class="sid">ID ${s.id}</div>
+        </div>
+      </div>
+      <div class="sitem-right">${statusBadge}</div>
+    </div>`;
+  }).join("");
 }
 
-function pickStudent(id) {
-  student = STUDENTS.find(s => s.id===id);
-  filterStudents();
+function pickStudent(pid) {
+  const judge = JUDGES[judgeIdx];
+  student     = myStudents.find(s => s.pid === pid);
+  const jEntry= student.judges.find(j => j.j === judge.name);
+  studentRow  = jEntry.row;
+  renderStudentList();
 }
 
-// ─── Score screen ─────────────────────────────────────────────────────────────
+// ─── SCORE SCREEN ─────────────────────────────────────────────────────────────
 function buildScoreScreen() {
-  document.getElementById("sbn").textContent = student.name;
+  document.getElementById("sbn").textContent = `${student.pid} — ${student.name}`;
   document.getElementById("sbm").textContent = `ID ${student.id}`;
+  const lvl = JUDGES[judgeIdx].level;
   document.getElementById("sbb").innerHTML =
-    `<span class="pill ${student.level==="UG"?"pill-ug":"pill-grad"}">${student.level==="UG"?"Undergraduate":"Graduate"}</span>`;
+    `<span class="pill ${lvl==="Graduate"?"pill-grad":"pill-ug"}">${lvl}</span>`;
 
   document.getElementById("clist").innerHTML = CRITERIA.map(c => `
     <div class="crit">
       <div class="ctop">
-        <div><div class="cname">${c.name}</div></div>
+        <div class="cname">${c.name}</div>
         <div class="cmax">0–${c.max} pts</div>
       </div>
       <div class="srow">
@@ -601,19 +728,18 @@ function sync(key, val, fromNum) {
 }
 
 function refreshTotal() {
-  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  const t = CRITERIA.reduce((a,c)=>a+SC[c.key],0);
   document.getElementById("totalDisp").innerHTML = `${t%1===0?t:t.toFixed(1)} <small>/ ${TOTAL_MAX}</small>`;
 }
 
-// ─── Review screen ────────────────────────────────────────────────────────────
+// ─── REVIEW SCREEN ────────────────────────────────────────────────────────────
 function buildReviewScreen() {
-  const s = student;
-  document.getElementById("revInit").textContent = s.name.split(",")[0].slice(0,2).toUpperCase();
-  document.getElementById("revName").textContent = s.name;
+  document.getElementById("revInit").textContent = student.name.split(",")[0].slice(0,2).toUpperCase();
+  document.getElementById("revName").textContent = `${student.pid} — ${student.name}`;
   document.getElementById("revMeta").textContent =
-    `ID ${s.id} · ${s.level==="UG"?"Undergraduate — MECE5366":"Graduate — MECE6373"}`;
+    `ID ${student.id} · ${JUDGES[judgeIdx].level === "Graduate" ? "Graduate — MECE6373" : "Undergraduate — MECE5366"}`;
 
-  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
+  const t = CRITERIA.reduce((a,c)=>a+SC[c.key],0);
   document.getElementById("revTotal").innerHTML = `${t%1===0?t:t.toFixed(1)} <small>/ ${TOTAL_MAX}</small>`;
 
   document.getElementById("rlist").innerHTML = CRITERIA.map(c => {
@@ -632,22 +758,19 @@ function buildReviewScreen() {
   document.getElementById("errbox").classList.remove("show");
 }
 
-// ─── Submit ───────────────────────────────────────────────────────────────────
+// ─── SUBMIT ───────────────────────────────────────────────────────────────────
 function submitScores() {
-  const t          = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
-  const judge      = JUDGES[judgeIdx];
-  // targetRow = student's base row + judge's 0-based offset within that block
-  const targetRow  = student.sheetRow + judgeIdx;
-
+  const t     = CRITERIA.reduce((a,c)=>a+SC[c.key],0);
+  const judge = JUDGES[judgeIdx];
   const payload = {
     judge:       judge.name,
     affil:       judge.affil,
+    level:       judge.level,
     studentName: student.name,
     studentId:   student.id,
-    level:       student.level==="UG" ? "Undergraduate" : "Graduate",
-    targetRow,
-    c1:SC.c1, c2:SC.c2, c3:SC.c3, c4:SC.c4,
-    c5:SC.c5, c6:SC.c6, c7:SC.c7, c8:SC.c8,
+    posterId:    student.pid,
+    targetRow:   studentRow,
+    c1:SC.c1,c2:SC.c2,c3:SC.c3,c4:SC.c4,c5:SC.c5,c6:SC.c6,c7:SC.c7,c8:SC.c8,c9:SC.c9,
     total:    t,
     comments: (document.getElementById("commentsField").value||"").trim()
   };
@@ -658,37 +781,31 @@ function submitScores() {
 
   const iframeName = "gs_" + Date.now();
   const iframe = document.createElement("iframe");
-  iframe.name  = iframeName;
-  iframe.style.display = "none";
+  iframe.name = iframeName; iframe.style.display = "none";
   document.body.appendChild(iframe);
-
-  const form   = document.createElement("form");
-  form.method  = "POST";
-  form.action  = SCRIPT_URL;
-  form.target  = iframeName;
+  const form = document.createElement("form");
+  form.method = "POST"; form.action = SCRIPT_URL; form.target = iframeName;
   form.style.display = "none";
-  const field  = document.createElement("input");
-  field.type   = "hidden";
-  field.name   = "payload";
-  field.value  = JSON.stringify(payload);
-  form.appendChild(field);
-  document.body.appendChild(form);
+  const field = document.createElement("input");
+  field.type = "hidden"; field.name = "payload"; field.value = JSON.stringify(payload);
+  form.appendChild(field); document.body.appendChild(form);
 
   let done = false;
   function finish() {
     if (done) return; done = true;
     clearTimeout(timer);
+    // Mark this student as scored in local statusMap
+    statusMap[studentRow] = true;
     showSuccess(payload, t);
     try { document.body.removeChild(form); }   catch(_) {}
     try { document.body.removeChild(iframe); } catch(_) {}
   }
-
   form.submit();
   const timer = setTimeout(finish, 5000);
   iframe.onload = finish;
 }
 
-// ─── Success / report ─────────────────────────────────────────────────────────
+// ─── SUCCESS + REPORT ─────────────────────────────────────────────────────────
 function showSuccess(payload, t) {
   document.getElementById("subTxt").classList.remove("hidden");
   document.getElementById("spin").style.display = "none";
@@ -697,93 +814,83 @@ function showSuccess(payload, t) {
   const pct   = Math.round((t / TOTAL_MAX) * 100);
   const tDisp = t%1===0 ? t : t.toFixed(1);
   const now   = new Date().toLocaleString();
+  const judge = JUDGES[judgeIdx];
 
   document.getElementById("rpt-total").textContent    = tDisp;
-  document.getElementById("rpt-student").textContent  = payload.studentName;
+  document.getElementById("rpt-student").textContent  = `${payload.posterId} — ${payload.studentName}`;
   document.getElementById("rpt-studentmeta").innerHTML= `ID ${payload.studentId} &nbsp;·&nbsp; ${payload.level}`;
   document.getElementById("rpt-judge").textContent    = payload.judge;
   document.getElementById("rpt-affil").textContent    = payload.affil;
   document.getElementById("rpt-time").textContent     = now;
 
   document.getElementById("rpt-breakdown").innerHTML = CRITERIA.map(c => {
-    const val    = payload[c.key] !== undefined ? payload[c.key] : SC[c.key];
-    const barPct = Math.round((val / c.max) * 100);
-    return `
-      <div style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">
-          <span style="font-size:13px;color:var(--text);">${c.name}</span>
-          <span style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;margin-left:10px;">${val}<span style="font-weight:400;color:var(--faint);">/${c.max}</span></span>
-        </div>
-        <div style="height:4px;background:#e4e2dc;border-radius:4px;overflow:hidden;">
-          <div style="height:100%;width:${barPct}%;background:#2a5bd7;border-radius:4px;"></div>
-        </div>
-      </div>`;
+    const val = SC[c.key]; const bp = Math.round((val/c.max)*100);
+    return `<div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+        <span style="font-size:12px;color:var(--text);">${c.name}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;margin-left:8px;">${val}<span style="font-weight:400;color:var(--faint);">/${c.max}</span></span>
+      </div>
+      <div style="height:4px;background:#e4e2dc;border-radius:4px;overflow:hidden;">
+        <div style="height:100%;width:${bp}%;background:#2a5bd7;border-radius:4px;"></div>
+      </div></div>`;
   }).join("");
 
   const cw = document.getElementById("rpt-comments-wrap");
-  if (payload.comments) {
-    cw.style.display = "block";
-    document.getElementById("rpt-comments").textContent = payload.comments;
-  } else {
-    cw.style.display = "none";
-  }
+  if (payload.comments) { cw.style.display="block"; document.getElementById("rpt-comments").textContent=payload.comments; }
+  else cw.style.display="none";
 
   document.getElementById("rpt-pct").textContent = pct + "%";
-
   nav(5);
-
   setTimeout(() => captureAndDownload(payload, t), 600);
 }
 
 function captureAndDownload(payload, t) {
-  const pct   = Math.round((t / TOTAL_MAX) * 100);
-  const fname = `ScoreReport_${(payload.studentName||student.name).replace(/,\s*/g,"_")}_${JUDGES[judgeIdx].name.replace(/,\s*/g,"_")}.png`;
-
+  const pct   = Math.round((t/TOTAL_MAX)*100);
+  const fname = `ScoreReport_${(payload.posterId||"")}_${payload.studentName.replace(/,\s*/g,"_")}_${JUDGES[judgeIdx].name.replace(/,\s*/g,"_")}.png`;
   document.getElementById("rpt-pctbar").style.width = pct + "%";
 
   html2canvas(document.getElementById("reportCard"), {
-    scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false
+    scale:2, useCORS:true, backgroundColor:"#ffffff", logging:false
   }).then(canvas => {
-    const a    = document.createElement("a");
-    a.href     = canvas.toDataURL("image/png");
-    a.download = fname;
-    a.click();
+    const a = document.createElement("a");
+    a.href = canvas.toDataURL("image/png"); a.download = fname; a.click();
     document.getElementById("noticeIcon").textContent = "✅";
-    document.getElementById("noticeText").innerHTML   =
-      `<strong>Report image downloaded!</strong><br>Check your downloads folder for <em>${fname}</em>. Tap <strong>Save report as image</strong> to download again.`;
+    document.getElementById("noticeText").innerHTML =
+      `<strong>Report image downloaded!</strong><br>Check your downloads folder for <em>${fname}</em>.`;
   }).catch(() => {
     document.getElementById("noticeIcon").textContent = "📸";
-    document.getElementById("noticeText").innerHTML   =
-      `<strong>Auto-download failed.</strong><br>Tap <strong>Save report as image</strong> below, or take a screenshot manually.`;
+    document.getElementById("noticeText").innerHTML =
+      `<strong>Auto-download failed.</strong><br>Tap <strong>Save report as image</strong> below, or take a screenshot.`;
   });
 }
 
 function saveImage() {
-  const t = CRITERIA.reduce((a,c) => a+SC[c.key], 0);
-  captureAndDownload({studentName: student.name}, t);
+  const t = CRITERIA.reduce((a,c)=>a+SC[c.key],0);
+  captureAndDownload({posterId: student.pid, studentName: student.name, studentId: student.id,
+    level: JUDGES[judgeIdx].level, judge: JUDGES[judgeIdx].name, affil: JUDGES[judgeIdx].affil,
+    comments: (document.getElementById("commentsField").value||"").trim()}, t);
 }
 
-// ─── Navigation helpers ───────────────────────────────────────────────────────
 function scoreAnother() {
-  student = null;
+  student = null; studentRow = null;
   Object.keys(SC).forEach(k => SC[k]=0);
-  document.getElementById("searchInp").value   = "";
+  document.getElementById("searchInp").value    = "";
   document.getElementById("commentsField").value = "";
-  filterStudents();
+  renderStudentList();
   nav(2);
 }
 
 function changeJudge() {
-  student = null; judgeIdx = -1;
+  student = null; studentRow = null; judgeIdx = -1;
   Object.keys(SC).forEach(k => SC[k]=0);
-  document.getElementById("searchInp").value   = "";
+  document.getElementById("searchInp").value    = "";
   document.getElementById("commentsField").value = "";
   document.querySelectorAll(".jcard").forEach(c => c.classList.remove("sel"));
   nav(1);
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
-filterStudents();
+// Focus first digit on load
+window.addEventListener("load", () => document.getElementById("d0").focus());
 </script>
 </body>
 </html>
