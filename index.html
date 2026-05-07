@@ -260,10 +260,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="stitle" style="text-align:center;margin-bottom:6px">Enter Access Code</div>
       <div class="ssub" style="text-align:center;margin-bottom:24px">Enter the 4-digit code provided by your coordinator.</div>
       <div class="code-inputs">
-        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d0" oninput="onDigit(0)" onkeydown="onKey(event,0)"/>
-        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d1" oninput="onDigit(1)" onkeydown="onKey(event,1)"/>
-        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d2" oninput="onDigit(2)" onkeydown="onKey(event,2)"/>
-        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" id="d3" oninput="onDigit(3)" onkeydown="onKey(event,3)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" id="d0" onkeydown="onDigitKey(event,0)" oninput="onDigitInput(event,0)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" id="d1" onkeydown="onDigitKey(event,1)" oninput="onDigitInput(event,1)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" id="d2" onkeydown="onDigitKey(event,2)" oninput="onDigitInput(event,2)"/>
+        <input class="code-digit" type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" id="d3" onkeydown="onDigitKey(event,3)" oninput="onDigitInput(event,3)"/>
       </div>
       <div class="code-error" id="codeError"></div>
       <div class="code-hint">Contact your coordinator if you don't have the code.</div>
@@ -591,21 +591,73 @@ let statusLoaded= false;
 const SC = {c1:0,c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0,c9:0};
 
 // ─── ACCESS CODE ──────────────────────────────────────────────────────────────
-function onDigit(idx) {
-  const el = document.getElementById("d"+idx);
-  const val = el.value.replace(/\D/g,"");
-  el.value = val;
-  if (val) { el.classList.add("filled"); if (idx < 3) document.getElementById("d"+(idx+1)).focus(); }
-  else { el.classList.remove("filled"); }
-  const code = [0,1,2,3].map(i => document.getElementById("d"+i).value).join("");
-  if (code.length === 4) checkCode(code);
-}
+function onDigitInput(e, idx) {
+  const el  = document.getElementById("d" + idx);
+  // Strip non-digits and keep only last character (handles paste of multiple digits)
+  const val = el.value.replace(/\D/g, "").slice(-1);
+  el.value  = val;
 
-function onKey(e, idx) {
-  if (e.key === "Backspace" && !document.getElementById("d"+idx).value && idx > 0) {
-    document.getElementById("d"+(idx-1)).focus();
+  if (val) {
+    el.classList.add("filled");
+    // Move focus to next box
+    if (idx < 3) {
+      document.getElementById("d" + (idx + 1)).focus();
+    }
+  } else {
+    el.classList.remove("filled");
+  }
+
+  // Check full code after every input
+  const code = [0,1,2,3].map(i => document.getElementById("d"+i).value).join("");
+  if (code.length === 4) {
+    // Small delay so the last digit visually appears before we react
+    setTimeout(() => checkCode(code), 80);
   }
 }
+
+function onDigitKey(e, idx) {
+  const el = document.getElementById("d" + idx);
+
+  // Allow: digits, backspace, delete, tab, arrows
+  if (e.key === "Backspace") {
+    if (el.value) {
+      el.value = "";
+      el.classList.remove("filled");
+    } else if (idx > 0) {
+      // Move to previous box and clear it
+      const prev = document.getElementById("d" + (idx - 1));
+      prev.value = "";
+      prev.classList.remove("filled");
+      prev.focus();
+    }
+    e.preventDefault();
+    return;
+  }
+
+  if (e.key === "ArrowLeft" && idx > 0) {
+    document.getElementById("d" + (idx - 1)).focus();
+    e.preventDefault();
+    return;
+  }
+  if (e.key === "ArrowRight" && idx < 3) {
+    document.getElementById("d" + (idx + 1)).focus();
+    e.preventDefault();
+    return;
+  }
+
+  // Block non-numeric keys (but allow tab, enter, ctrl combos)
+  if (
+    e.key.length === 1 &&
+    !/[0-9]/.test(e.key) &&
+    !e.ctrlKey && !e.metaKey
+  ) {
+    e.preventDefault();
+  }
+}
+
+// Keep old function names as aliases so nothing breaks
+function onDigit(idx)       { onDigitInput({}, idx); }
+function onKey(e, idx)      { onDigitKey(e, idx); }
 
 function checkCode(code) {
   if (code === ACCESS_CODE) {
